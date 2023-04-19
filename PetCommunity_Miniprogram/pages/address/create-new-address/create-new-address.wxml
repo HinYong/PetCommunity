@@ -1,0 +1,17 @@
+<!--pages/address/createnewaddress/create-new-address.wxml-->
+<form bindsubmit="formSubmit" bindreset="formReset">
+    <view wx:for="{{form}}" wx:key="index">
+        <aw-input wx:if="{{item.type === 'input'}}" formItem='{{item}}' index='{{index}}'></aw-input>
+        <view wx:else>
+            <view class="cu-form-group">
+                <view class="title">是否设为默认地址</view>
+                <switch checked="{{is_checked}}" bindchange="changeSwitch"></switch>
+            </view>
+        </view>	
+    </view>
+    <!-- 点击该按钮验证是否符合规范 -->
+    <view class="btn-area">
+        <button class="submit" form-type="submit">提交</button>
+        <button class="reset" form-type="reset">清空</button>
+    </view> 
+</form>

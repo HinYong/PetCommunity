@@ -1,0 +1,149 @@
+/* pages/home/home.wxss */
+.hot-card {
+  position: relative;
+  margin: 52rpx 50rpx;
+  background: white;
+  border-radius: 15rpx;
+  box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.05);
+  height: 480rpx;
+  width: 640rpx;
+}
+
+.hot-name {
+  position: absolute;
+  top: 36rpx;
+  left: 36rpx;
+  display: flex;
+  align-items: center;
+}
+
+.hot-name-line {
+  width: 24rpx;
+  height: 39rpx;
+}
+
+.hot-name-text {
+  margin: 0 20rpx;
+  font-size: 28rpx;
+  color: #333;
+  font-weight: bold;
+}
+
+.hot-image-discount {
+  position: absolute;
+  width: 259rpx;
+  height: 188rpx;
+  bottom: 0;
+  left: 42rpx;
+}
+
+.hot-image {
+  position: absolute;
+  width: 240rpx;
+  height: 240rpx;
+  right: 36rpx;
+  top: 40rpx;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50rpx 0 40rpx;
+}
+
+.separator-line {
+  width: 21rpx;
+  height: 34rpx;
+}
+
+.separator-text {
+  margin: 0 20rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.list {
+  display: flex;
+  margin: 0 27rpx 0 50rpx;
+  justify-content: space-around;
+}
+
+.list-item {
+  background: white;
+  border-radius: 15rpx;
+  box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.05);
+  width: 100%;
+  margin-bottom: 30rpx;
+  margin-right: 30rpx;
+}
+
+.list-item-image {
+  height: 260rpx;
+  width: 260rpx;
+  margin: 15rpx 20rpx 15rpx;
+}
+
+.list-item-title {
+  margin-left: 20rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  opacity: 0.5;
+  margin-right: 20rpx;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4; /* 指定显示文本的行数 */
+  overflow: hidden; /* 超出隐藏 */
+  text-overflow: ellipsis; /* 超出部分显示省略号 */
+}
+
+.list-item-bottom {
+  margin: 20rpx 18rpx;
+  display: flex;
+}
+
+.list-item-bottom-icon {
+  width: 40rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  text-align: center;
+  border-radius: 50%;
+  color: #f8f8f8;
+  font-weight: 600;
+  background: #3bd12e;
+  font-size: 30rpx;
+  padding-top: 2rpx;
+}
+
+.list-item-bottom-price {
+  flex: 1;
+  margin: 3rpx 12rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  opacity: 0.5;
+}
+
+.btn-hover{
+  position: relative;
+  top: 3rpx;
+  box-shadow:0px 0px 10px #bbbec4 inset; 
+}
+
+.image-btn{
+  flex-shrink: 0;
+  height: 40rpx;
+  width: 40rpx;
+  border-radius: 50%;
+  padding: 0;
+  background-color: transparent;   /*按钮透明*/  
+  border:none;				/*设置按钮边框*/
+  margin-top: 8rpx;
+} 
+
+.image-btn-content {
+  flex-shrink: 0;
+  height: 40rpx;
+  width: 40rpx;
+  border-radius: 50%;
+  margin-bottom: 20rpx;
+}

@@ -1,0 +1,182 @@
+/* pages/pet-help/pet-help.wxss */
+
+page {
+  background-color: #ffffff;
+}
+
+/* 发帖按钮 */
+.publish-block {
+  background: #fff;
+  box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.05);
+  border-bottom: 2px solid rgba(151, 151, 151, 0.2);
+}
+
+.publish-card {
+  display: flex;
+  align-items: center;
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  height: 300rpx;
+  background: blanchedalmond;
+  border-radius: 30rpx;
+}
+
+.imgs {
+  width: 130rpx;
+  height: 130rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 110rpx;
+}
+
+.imgs image {
+  width: 130rpx;
+  height: 130rpx;
+  display: block;
+}
+
+.context {
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+}
+
+.context .title {
+  color: #333333c2;
+  font-size: 70rpx;
+  margin-bottom: 5rpx;
+}
+
+
+/* 导航栏 */
+.navbar{
+  flex: none;
+  display: flex;
+  background: #fff;
+  position: relative;
+  width: 100%;
+  z-index: 1024;
+}
+.navbar .item{
+  position: relative;
+  flex: auto;
+  text-align: center;
+  line-height: 80rpx;
+}
+.navbar .item.active{
+  color: #FFCC00;
+}
+.navbar .item.active:after{
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4rpx;
+  background: #FFCC00;
+}
+
+.empty-list {
+  display: flex;
+  flex-direction: column;
+  margin: 40rpx 30rpx;
+  background: white;
+  border-radius: 15rpx;
+  box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.05);
+  height: 950rpx;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 求助具体内容 */
+.part-content{
+  justify-content: center;
+  margin: auto;
+}
+.part-content-item{
+  padding-bottom: 10rpx;
+  border-bottom: 5rpx rgb(240, 242, 243) solid ;
+}
+
+.help-info{
+  width: 90%;
+  margin: auto;
+  margin-top: 20rpx;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 7rpx;
+}
+
+.help-info-item{
+  margin-top: 5rpx;
+  font-weight: 500;
+  color: #000000a8;
+  font-size: 35rpx;
+  margin-left: 10rpx;
+}
+
+.article-part{
+  background-color: burlywood;
+}
+
+.part-content-middle{
+  width: 88%;
+  margin: auto;
+  padding: 5rpx 10rpx;
+  text-align: center;
+}
+
+.acticle-text{
+  word-wrap: break-word;
+  font-size: 35rpx;
+  color: #000000a8;
+  display: -webkit-box;
+  text-align: left;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  letter-spacing: 2rpx;
+  margin-bottom: 8rpx;
+}
+
+.acticle-image{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.show-image{
+  width: 200rpx;
+  height: 200rpx;
+  margin: 7rpx 8rpx 7rpx 2rpx;
+}
+
+.show-image image{
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  margin: 5rpx;
+  border-radius: 10rpx;
+}
+
+.help-post-detail{
+  display: block;
+}
+
+.help-post-time{
+  margin-top: 15rpx;
+  display: block;
+  float: right;
+  font-size: 28rpx;
+  color: cadetblue;
+}
+
+.publish-time{
+  text-align: right;
+  margin-top: 20rpx;
+  color: #808080c9;
+}

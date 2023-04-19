@@ -1,0 +1,186 @@
+/* pages/order/order.wxss */
+.order-head {
+  margin: 40rpx 30rpx 20rpx;
+  display: flex;
+  align-items: center;
+}
+
+.order-head-line {
+  width: 21rpx;
+  height: 34rpx;
+}
+
+.order-head-text {
+  margin-left: 10rpx;
+  font-size: 30rpx;
+  line-height: 33rpx;
+  color: rgba(52, 55, 61, 0.8);
+}
+
+.order-block {
+  margin: 0 26rpx 26rpx;
+  background: #fff;
+  box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.05);
+  border-radius: 13rpx;
+  padding-bottom: 30rpx;
+}
+
+.order-card {
+  display: flex;
+  align-items: center;
+  margin-left: 19rpx;
+  margin-right: 23rpx;
+  height: 300rpx;
+  border-bottom: 1px solid rgba(151, 151, 151, 0.2);
+}
+
+.order-card:last-child {
+  border-bottom: none;
+}
+
+.order-image {
+  flex-shrink: 0;
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.order-info {
+  flex: 1;
+  padding: 34rpx;
+  height: 100%;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+
+.order-name {
+  color: rgba(29, 29, 38, 0.8);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5; /* 指定显示文本的行数 */
+  overflow: hidden; /* 超出隐藏 */
+  text-overflow: ellipsis; /* 超出部分显示省略号 */
+}
+
+.order-price {
+  margin-top: 12rpx;
+  font-weight: bold;
+}
+
+.order-opr {
+  flex-shrink: 0;
+  margin-left: 50rpx;
+  padding-top: 34rpx;
+  height: 100%;
+  box-sizing: border-box;
+  font-size: 28rpx;
+}
+
+.item-total-price {
+  margin-top: 15rpx;
+  line-height: 40rpx;
+  font-weight: bold;
+  text-align: right;
+  padding-right: 15rpx;
+}
+
+.order-btn {
+  width: 130rpx;
+  height: 52rpx;
+  line-height: 52rpx;
+  background: #F5E069;
+  border-radius: 8rpx;
+  text-align: center;
+  margin-bottom: 25rpx;
+}
+
+.order-count {
+  margin-top: 157rpx;
+  line-height: 40rpx;
+  font-weight: bold;
+  text-align: right;
+  padding-right: 15rpx;
+}
+
+.bottom {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  background: white;
+  padding-left: 24rpx;
+  margin-top: 200rpx;
+}
+
+.bottom-pay {
+  height: 100rpx;
+  width: 200rpx;
+  line-height: 100rpx;
+  text-align: center;
+  font-size: 30rpx;
+  background: #3bd12e;
+  color: #f8f8f8;
+  font-weight: bold;
+}
+
+.bottom-pay.canpay {
+  color: #34373d
+}
+
+.bottom-text {
+  flex: 1;
+  text-align: right;
+  opacity: 0.5;
+  margin-right: 5rpx;
+}
+
+.bottom-price {
+  font-size: 30rpx;
+  line-height: 42rpx;
+  margin-right: 20rpx;
+}
+
+.product-list {
+  position: absolute;
+  left: 0;
+  right: 0;
+  padding-bottom: 10rpx;
+  padding-top: 10rpx;
+  margin-bottom: 90rpx;
+}
+
+.imgs {
+  width: 130rpx;
+  height: 130rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imgs image {
+  width: 130rpx;
+  height: 130rpx;
+  display: block;
+}
+
+.context {
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+}
+
+.context .title {
+  color: #333;
+  font-size: 34rpx;
+}
+
+.context .bottoms {
+  display: flex;
+  padding-top: 20rpx;
+}
+
+.create-add{
+  font-size: large;
+  margin-left: 10rpx;
+}

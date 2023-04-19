@@ -1,0 +1,23 @@
+<!--pages/add-comment/add-comment.wxml-->
+<view class='order-head'>
+  <image src="/images/line-black.png" class='order-head-line'></image>
+  <view class='order-head-text'>商品详情</view>
+</view>
+<view class="item-block" >
+  <view class="item-card">
+    <image class="order-image" mode="widthFix" src="{{product.image}}"></image>
+    <view class="order-info">
+      <view class="order-name">{{product.name}}</view>
+      <view class="order-price">¥ {{product.price}}</view>
+    </view>
+  </view>
+</view>
+
+<view class='order-head'>
+  <image src="/images/line-black.png" class='order-head-line'></image>
+  <view class='order-head-text'>发表评价</view>
+</view>
+<view class='comment-cnt'>
+  <textarea class='comment-ipt' placeholder-class='comment-placeholder' placeholder='请填写你的评价' auto-focus maxlength='600' bindinput='onInput'></textarea>
+</view>
+<view class="comment-btn {{!commentValue ? 'dis' : ''}}" bindtap='addComment'>提交评价</view>

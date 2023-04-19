@@ -1,0 +1,33 @@
+<!--pages/payment/select-address/select-address.wxml-->
+
+<view class="address">
+	<view class='order-head'>
+		<image src="/images/line-black.png" class='order-head-line'></image>
+		<view class='order-head-text'>我的收货地址</view>
+  </view>
+	<view class="content">
+		<view wx:if="{{ length == 0 }}" class="empty-list" bindtap="createAdd">
+			<image class="empty-image" src="/images/address.png"></image>
+			<view class="empty-text">还没有收货地址哦</view>
+			<view class="empty-text">快添加收货地址吧</view>
+		</view>
+		<!-- 通过 isTouchMove 的值来对应移动位置-->
+		<view wx:else>
+			<view class="item {{item.isTouchMove ? 'touch-move-active' : ''}}" wx:for="{{AddressList}}" wx:key="item.id">
+				<view class="item-left" data-index="{{index}}" bindtouchstart="touchStart" bindtouchmove="touchMove" bindtap="selectAdd" >
+					<view class="imgs">
+						<image wx:if="{{item.is_default==1}}" src="/images/address_selected.png"></image>
+						<image wx:else src="/images/address.png"></image>
+					</view>
+					<view class="context">
+						<view class="title">{{item.receiver_name}} {{item.receiver_phone}}</view>
+						<view class="bottoms">{{item.province}} {{item.city}} {{item.area}} {{item.detail_address}}</view>
+					</view>
+				</view>
+				<view class="delete" data-id="{{item.id}}" bindtap="delAdd">删除</view>
+				<view class="edit" data-id="{{item.id}}" data-receiver_name="{{item.receiver_name}}" data-receiver_phone="{{item.receiver_phone}}" data-province="{{item.province}}" data-city="{{item.city}}" data-area="{{item.area}}" data-detail_address="{{item.detail_address}}" data-is_default="{{item.is_default}}" bindtap="editAdd">编辑</view>
+			</view>
+		</view>
+  </view>
+  <button class="bottom-button" bindtap="createAdd">添加新的地址</button>
+</view>

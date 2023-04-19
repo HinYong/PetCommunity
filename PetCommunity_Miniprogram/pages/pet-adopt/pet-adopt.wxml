@@ -1,0 +1,68 @@
+<!--pages/pet-adopt/pet-adopt.wxml-->
+<view class="cu-bar bg-white search fixed" style="top:{{CustomBar}}px;">
+  <view class="search-form round">
+    <text class="cuIcon-search"></text>
+    <input type="text" placeholder="输入搜索的关键词" bindinput="searchInput"></input>
+  </view>
+  <view class="action">
+    <button class="cu-btn round bg-green button-hover" bindtap="search">搜索</button>
+  </view>
+</view>
+
+<view style="margin-top:50px">
+  <!-- 顶部菜单栏 -->
+  <view class="navbar">
+    <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}</text>
+  </view>
+
+  <!-- 狗狗领养需求 -->
+  <view wx:if="{{currentTab==0}}">
+    <view wx:if="{{ dogList.length === 0 }}" class="empty-list">
+      <image class="empty-image" src="/images/orderlist.png"></image>
+      <view class="empty-text">暂时还没有领养需求</view>
+    </view>
+    <view wx:else>
+      <scroll-view class="part-content" scroll-y style="height: 664px; padding-top: 55px; padding-bottom: 60px;" bindscrolltolower="loadMore">
+        <view wx:for="{{dogList}}" wx:for-item="adopt" wx:key="index" class="adopt-block">
+          <view class="adopt-card" bindtap="gotoAdoptDetail" data-adopt='{{adopt}}'>
+            <image class="adopt-image" mode="widthFix" src="{{adopt.images_List[0]}}"></image>
+            <view class="adopt-info">
+              <view class="adopt-name">宠物品种：{{adopt.pet_name}}</view>
+              <view class="adopt-name">宠物年龄：{{adopt.pet_age}}</view>
+              <view class="adopt-name">机构：{{adopt.agency.agency_name}}</view>
+              <view class="adopt-name">发布于：{{adopt.publish_time1}}</view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <!-- 猫咪领养需求 -->
+  <view wx:elif="{{currentTab==1}}">
+    <view wx:if="{{ catList.length === 0 }}" class="empty-list">
+      <image class="empty-image" src="/images/orderlist.png"></image>
+      <view class="empty-text">暂时还没有领养需求</view>
+    </view>
+    <view wx:else>
+      <scroll-view class="part-content" scroll-y style="height: 664px; padding-top: 55px; padding-bottom: 60px;" bindscrolltolower="loadMore">
+        <view wx:for="{{catList}}" wx:for-item="adopt" wx:key="index" class="adopt-block">
+          <view class="adopt-card" bindtap="gotoAdoptDetail" data-adopt='{{adopt}}'>
+            <image class="adopt-image" mode="widthFix" src="{{adopt.images_List[0]}}"></image>
+            <view class="adopt-info">
+              <view class="adopt-name">宠物品种：{{adopt.pet_name}}</view>
+              <view class="adopt-name">宠物年龄：{{adopt.pet_age}}</view>
+              <view class="adopt-name">机构：{{adopt.agency.agency_name}}</view>
+              <view class="adopt-name">发布于：{{adopt.publish_time1}}</view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>
+
+<!-- 我的申请 -->
+<view class='opr'>
+  <view class='opr-my' bindtap="gotoMyRequests">我的申请</view> 
+</view>

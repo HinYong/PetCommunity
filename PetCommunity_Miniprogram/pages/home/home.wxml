@@ -1,0 +1,40 @@
+<!--pages/home/home.wxml-->
+<image src="/images/bg.png" class='bg'></image>
+<swiper indicator-dots='true' autoplay="true" duration="1200" class="hot-card">
+  <swiper-item >
+    <image src="/images/swipers/swiper5.jpg"></image>
+  </swiper-item>
+  <swiper-item >
+    <image src="/images/swipers/swiper1.jpg"></image>
+  </swiper-item>
+  <swiper-item >
+    <image src="/images/swipers/swiper2.jpg"></image>
+  </swiper-item>
+  <swiper-item >
+    <image src="/images/swipers/swiper3.jpg"></image>
+  </swiper-item>
+  <swiper-item >
+    <image src="/images/swipers/swiper4.jpg"></image>
+  </swiper-item>
+</swiper>
+<view class='separator'>
+  <image src="/images/line-black.png" class='separator-line'></image>
+  <view class='separator-text'>推荐</view>
+  <image src="/images/line-black.png" class='separator-line'></image>
+</view>
+<view wx:for='{{productList}}' wx:if='{{ index%2 === 0 }}' wx:key='list' class='list'>
+  <navigator url="/pages/detail/detail?id={{pitem._id}}" wx:for='{{[productList[index],productList[index+1]]}}' wx:key="item" wx:for-index='pindex' wx:for-item='pitem' class='list-item list-item-right'>
+    <image src="{{pitem.image}}" class='list-item-image'></image>
+    <view class='list-item-title'>{{pitem.name}}</view>
+    <view class='list-item-bottom'>
+      <view class="image-btn" hover-class="btn-hover">
+        <image class="image-btn-content" src="/images/money.png"></image>
+      </view>
+      <view class='list-item-bottom-price'>{{pitem.price}}</view>
+      <view class="image-btn" hover-class="btn-hover" data-index="{{pitem._id}}" catchtap='addToTrolley'>
+        <image class="image-btn-content" src="/images/add.png"></image>
+      </view>
+    </view>
+  </navigator>
+</view>
+

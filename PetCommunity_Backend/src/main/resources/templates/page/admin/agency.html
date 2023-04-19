@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>宠物救助机构管理</title>
+    <link rel="stylesheet" href="../../assets/libs/layui/css/layui.css"/>
+    <link rel="stylesheet" href="../../assets/module/admin.css?v=315"/>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<!-- 页面加载loading -->
+<div class="page-loading">
+    <div class="ball-loader">
+        <span></span><span></span><span></span><span></span>
+    </div>
+</div>
+
+<!-- 正文开始 -->
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-body table-tool-mini full-table">
+            <div class="layui-form toolbar">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label w-auto">机构名称：</label>
+                        <div class="layui-input-inline mr0">
+                            <input name="agency_name" class="layui-input" type="text" placeholder="请输入机构名称"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline" style="padding-right: 110px;">
+                        <button class="layui-btn icon-btn" lay-filter="formSubSearchAgencyByName" lay-submit>
+                            <i class="layui-icon">&#xe615;</i>搜索
+                        </button>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label w-auto">机构区域：</label>
+                        <div class="layui-input-inline mr0">
+                            <input name="area" class="layui-input" type="text" placeholder="请输入区域关键字"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline" style="padding-right: 110px;">
+                        <button class="layui-btn icon-btn" lay-filter="formSubSearchAgencyByArea" lay-submit>
+                            <i class="layui-icon">&#xe615;</i>搜索
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <table class="layui-table" id="tableAgency" lay-filter="tableAgency"></table>
+        </div>
+    </div>
+</div>
+
+<!-- js部分 -->
+<script type="text/javascript" src="../../assets/libs/layui/layui.js"></script>
+<script type="text/javascript" src="../../assets/js/common.js?v=315"></script>
+<script>
+    layui.use(['layer', 'form', 'table', 'util', 'admin', 'tableX'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        var util = layui.util;
+        var admin = layui.admin;
+        var tableX = layui.tableX;
+
+        // 渲染表格
+        var insTb = table.render({
+            elem: '#tableAgency',
+            url: '/api/getAllAgencies',
+            page: true,
+            height: "full-100",
+            toolbar: true,
+            cellMinWidth: 120,
+            cols: [
+                [
+                    {field: 'agency_id', width:100, sort: true, title: '机构编号'}
+                    ,{field: 'agency_name', width:200, sort: true, title: '机构名称'}
+                    ,{field: 'province', sort: true, title: '省'}
+                    ,{field: 'city', sort: true, title: '市'}
+                    ,{field: 'detail_address', title: '详细地址'}
+                    ,{field: 'phone', title: '联系电话'}
+                    ,{field: 'email', width:180, title: '邮箱'}
+                    ,{field: 'website', width:200, templet: function (d) {
+                        if(d.website==null){
+                            return "暂无"
+                        }
+                        else{
+                            return d.website}
+                        }, title: '网址'
+                    }
+                ]
+            ]
+        });
+
+        // 按名称搜索
+        form.on('submit(formSubSearchAgencyByName)', function (data) {
+            insTb.reload({where: data.field,url:'/api/getAgenciesByName', page : {curr : 1}}, 'data');
+        });
+
+        // 按区域搜索
+        form.on('submit(formSubSearchAgencyByArea)', function (data) {
+            insTb.reload({where: data.field,url:'/api/getAgenciesByArea', page : {curr : 1}}, 'data');
+        });
+    });
+</script>
+
+</body>
+</html>

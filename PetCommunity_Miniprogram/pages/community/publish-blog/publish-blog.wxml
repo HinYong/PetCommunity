@@ -1,0 +1,40 @@
+<!--pages/community/publish-blog/publish-blog.wxml-->
+<view class="content" style="margin-top:40rpx">
+  <view class="content-input">
+    <!-- 文本输入区域 -->
+    <textarea class='text-input' autofocus bindinput="bindContent" maxlength='600' placeholder="这一刻的想法..." placeholder-class="text-input-placeholder" auto-height='{{true}}'></textarea>
+
+    <!-- 图片区域 -->
+    <view class="line"></view>
+    <view class="image-list">
+      <!-- 显示上传的图片 -->
+      <view class="showImage box" wx:for="{{imageList}}" wx:key="item">
+        <!-- 删除图片 -->
+        <view class="delete">
+          <image src="../../../images/send/del.png" data-imageId="{{index}}" bindtap="deleteImage"></image>
+        </view>
+        <image src="{{item}}" mode="aspectFill" data-imageId="{{index}}" bindtap="showImage"></image>
+      </view>
+      <!-- 添加图片，最多9张 -->
+      <view class="addImage" wx:if="{{imageList.length < 9}}" bindtap="chooseImage" >
+        <image src="../../../images/send/plus.png"></image>
+      </view>
+    </view>
+
+    <!-- 定位选择 -->
+    <view class="line"></view>
+    <view class="position_choose" bindtap="chooseLocation">
+      <view class="tag-title">
+        {{location && location.length > 0 ? location: '选择位置'}}
+      </view>
+      <image wx:if="{{location && location.length > 0}}" catchtap="deleteLocation" class="arrow-right" src="../../../images/send/clear.png"></image>
+      <image wx:if="{{ !location }}" class="arrow-right" src="../../../images/send/arrow_right.png"></image>
+    </view>
+  </view>
+
+  <!-- 底部按钮 -->
+  <view class="sendArticle">
+    <button class="weui-btn weui-btn_primary confirm" bindtap="publish">确认发布</button>
+    <button class="weui-btn weui-btn_default cancel" bindtap="cancel">取消发布</button>
+  </view>
+</view>

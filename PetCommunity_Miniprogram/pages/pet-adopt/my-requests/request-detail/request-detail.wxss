@@ -1,0 +1,275 @@
+/* pages/pet-adopt/my-requests/request-detail/request-detail.wxss */
+
+.top {
+  background: white;
+  padding: 30rpx 30rpx 20rpx;
+}
+
+/* 领养需求部分 */
+.hot-card {
+  background: white;
+  border-radius: 15rpx;
+  box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.05);
+  height: 600rpx;
+  padding-top: 40rpx;
+  padding-left: 25rpx;
+}
+
+.img {
+  height: 480rpx;
+  width: 480rpx;
+  margin-left: 85rpx;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 50rpx 0 30rpx;
+}
+
+.separator-line {
+  width: 21rpx;
+  height: 38rpx;
+  margin-top: 6rpx;
+}
+
+.separator-text {
+  margin: 0 20rpx;
+  font-size: 36rpx;
+  color: cadetblue;
+}
+
+.line {
+  background: #e6e6e6;
+  height: 1rpx;
+  margin-top: 36rpx;
+}
+
+.order-block {
+  background: #fff;
+  box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.05);
+  border-radius: 15rpx;
+}
+
+.order-card {
+  display: flex;
+  align-items: center;
+  margin-left: 19rpx;
+  margin-right: 19rpx;
+  padding-top: 23rpx;
+  padding-bottom: 23rpx;
+}
+
+.order-card:last-child {
+  border-bottom: none;
+}
+
+.order-image {
+  flex-shrink: 0;
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.order-info {
+  flex: 1;
+  margin-left: 34rpx;
+  margin-top: 70rpx;
+  height: 100%;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+
+.order-name {
+  color: rgba(29, 29, 38, 0.8);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5; /* 指定显示文本的行数 */
+  overflow: hidden; /* 超出隐藏 */
+  text-overflow: ellipsis; /* 超出部分显示省略号 */
+  font-size: medium;
+}
+
+.context {
+  padding-left: 10rpx;
+}
+
+.context .title {
+  color: #333;
+  font-size: 34rpx;
+}
+
+.context .orderinfo {
+  display: flex;
+  padding-top: 10rpx;
+  font-size: 34rpx;
+  line-height: 60rpx;
+  white-space: pre-wrap;
+}
+
+/* 用户申请部分 */
+.order-block1 {
+  background: #fff;
+  box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.05);
+  border-radius: 13rpx;
+}
+
+.order-card1 {
+  display: flex;
+  align-items: center;
+  margin-left: 19rpx;
+  margin-right: 23rpx;
+  min-height: 300rpx;
+  padding: 20rpx 0;
+  border-bottom: 1px solid rgba(151, 151, 151, 0.2);
+}
+
+.order-card1:last-child {
+  border-bottom: none;
+}
+
+.imgs1 {
+  width: 130rpx;
+  height: 130rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imgs1 image {
+  width: 130rpx;
+  height: 130rpx;
+  display: block;
+}
+
+.context1 {
+  padding-left: 20rpx;
+}
+
+.context1 .title {
+  color: #333;
+  font-size: 34rpx;
+}
+
+.context1 .orderinfo {
+  display: flex;
+  padding-top: 10rpx;
+  font-size: 32rpx;
+  line-height: 40rpx;
+}
+
+.context1 .bottoms {
+  display: flex;
+  padding-top: 25rpx;
+  font-size: 34rpx;
+}
+
+/* 用户申请详情 */
+.artical-container{
+  box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.05);
+  border-radius: 13rpx;
+  padding: 20rpx 0 50rpx;
+}
+    
+.part-content{
+  justify-content: center;
+  margin: auto;
+}
+.part-content-item{
+  padding-bottom: 10rpx;
+  border-bottom: 5rpx rgb(240, 242, 243) solid ;
+}
+
+.adoptrequest-info{
+  width: 95%;
+  margin: auto;
+  margin-top: 10rpx;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 7rpx;
+}
+
+.adoptrequest-info-item{
+  margin-top: 5rpx;
+  font-weight: 500;
+  color: #000000a8;
+  font-size: 35rpx;
+  margin-left: 10rpx;
+}
+
+.article-part{
+  background-color: burlywood;
+}
+
+.part-content-middle{
+  width: 95%;
+  margin: auto;
+  padding: 5rpx 10rpx;
+  text-align: center;
+}
+
+.acticle-text{
+  word-wrap: break-word;
+  font-size: 35rpx;
+  color: #000000a8;
+  display: -webkit-box;
+  text-align: left;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  letter-spacing: 2rpx;
+  margin-bottom: 8rpx;
+  margin-left: 5rpx;
+}
+
+.acticle-image{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.show-image{
+  width: 200rpx;
+  height: 200rpx;
+  margin: 7rpx 8rpx 7rpx 2rpx;
+}
+
+.show-image image{
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  margin: 5rpx;
+  border-radius: 10rpx;
+}
+
+.adoptrequest-post-detail{
+  display: block;
+}
+
+.adoptrequest-post-time{
+  margin-top: 15rpx;
+  display: block;
+  float: right;
+  font-size: 28rpx;
+  color: cadetblue;
+}
+
+/* 底部栏 */
+.opr {
+  align-items: center;
+  border-top: 4rpx rgb(240, 242, 243) solid;
+  padding: 20rpx;
+  padding-top: 40rpx;
+}
+
+.opr-cancel {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #000000c9;
+  background: #ffcc00a3;
+  border-radius: 50rpx;
+}

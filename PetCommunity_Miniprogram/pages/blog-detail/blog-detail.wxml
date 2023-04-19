@@ -1,0 +1,137 @@
+<!--pages/community/blog-detail/blog-detail.wxml-->
+
+<!-- 博客正文部分 -->
+<view class="part-content-item">
+  <view class="part-content-top" >
+    <!-- 用户信息（头像、用户名等） -->
+    <view class="blog-user-info">
+      <view class="user-photo">
+        <image class="avatarUrl" wx:if="{{blog.user.avatarUrl}}" src="{{blog.user.avatarUrl}}" bindtap="gotoUserZone" data-user_openid = '{{blog.user_openid}}' mode="widthFix"></image>
+      </view>
+      <view class="blog-user-detail">
+        <view class="blog-user-name">{{blog.user.nickName}}</view>
+      </view>
+      <view class="blog-post-detail">
+        <view class="blog-post-time">{{blog.publish_time}}</view>
+        <view wx:if="{{is_me==true}}">
+          <image src="../../images/blog_detail/delete.png" class="delete-image" bindtap="deleteBlog"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 博客内容 -->
+  <view class="part-content-middle">
+    <view class="acticle-text">{{blog.blog_content}}</view>
+    <view class="acticle-image" wx:if="{{blog.images_List!=null}}">
+      <block wx:for="{{blog.images_List}}" wx:key="index">
+        <view class="show-image">
+          <image wx:if="{{item}}" src="{{item}}" mode="aspectfill" data-imageId="{{index}}" bindtap="showImage"></image>
+        </view>
+      </block>
+    </view>
+    <view wx:if="{{blog.location!=null}}" class="acticle-location">{{blog.location}}</view>
+  </view>
+</view>
+
+<!-- 评论区域 -->
+<view class='comment-list'>
+  <view class='comment-title'>{{blog.blog_comment_count}}条评论</view>
+  <scroll-view class='comment-card' wx:for='{{blogCommentList}}' wx:key='id' wx:for-item='father'>
+    <view class='father-comment'>
+      <!-- 父评论 -->
+      <image class='comment-avatar' src='{{father.user.avatarUrl}}' bindtap="gotoUserZone" data-user_openid="{{father.user_openid}}"></image>
+      <view class='comment-cnt'>
+        <view class='comment-top'>
+          <view class='comment-username'>{{father.user.nickName}}</view>
+          <view class="like">
+            <image wx:if="{{father.liked==false}}" src="../../images/blog_detail/like.png" class="comment-img" data-blog_comment="{{father}}" bindtap="likeComment"></image>
+            <image wx:else src="../../images/blog_detail/like_selected.png" class="comment-img" data-blog_comment="{{father}}" bindtap="likeComment"></image>
+            <text class="num">{{father.likes}}</text>
+          </view>
+        </view>
+        <view class='comment-content'>
+          <!-- 点击一级评论内容发表二级评论，没有回复对象 -->
+          <view bindtap="showSubCommentModel" data-father_comment_id="{{father.blog_comment_id}}">
+            {{father.comment_content}}
+          </view>
+          <view class="comment-bottom">
+            <view class="comment-time">{{father.comment_time}}</view>
+            <!-- 博客发布者以及评论发布者都可以删除评论 -->
+            <view wx:if="{{is_me==true||father.user_openid==my_openid}}">
+              <image src="../../images/blog_detail/delete.png" class="comment-delete-image1" data-blog_comment="{{father}}" bindtap="deleteComment"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <!-- 所有子评论 -->
+    <view class='sub-comment' wx:for='{{father.sub_commentList}}' wx:key='id' wx:for-item='sub'>
+      <image class='comment-avatar-sub' src='{{sub.user.avatarUrl}}' bindtap="gotoUserZone" data-user_openid = '{{sub.user_openid}}'></image>
+      <view class='comment-cnt'>
+        <view class='comment-top'>
+          <view class='comment-username'>
+            {{sub.user.nickName}}
+          </view>
+          <view class="like">
+            <image wx:if="{{sub.liked==false}}" src="../../images/blog_detail/like.png" class="comment-img" data-blog_comment="{{sub}}" bindtap="likeComment"></image>
+            <image wx:else src="../../images/blog_detail/like_selected.png" class="comment-img" data-blog_comment="{{sub}}" bindtap="likeComment"></image>
+            <text class="num">{{sub.likes}}</text>
+          </view>
+        </view>
+        <view class='comment-content'>
+          <!-- 点击二级评论内容发表回复的二级评论，reply_target_id就是所点击的二级评论的blog_comment_id -->
+          <view bindtap="showReplySubCommentModel" data-father_comment_id="{{father.blog_comment_id}}" data-reply_target_id="{{sub.blog_comment_id}}" data-reply_target_userid="{{sub.user_openid}}">
+            <!-- 如果有回复对象，则展示 -->
+            <view wx:if="{{sub.reply_target_User!=null}}">
+              回复 {{sub.reply_target_User.nickName}} ：{{sub.comment_content}}
+            </view>
+            <view wx:else>
+              {{sub.comment_content}}
+            </view>
+          </view>
+          <view class="comment-bottom">
+            <view class="sub-comment-time">{{sub.comment_time}}</view>
+            <!-- 博客发布者以及评论发布者都可以删除评论 -->
+            <view wx:if="{{is_me==true||sub.user_openid==my_openid}}">
+              <image src="../../images/blog_detail/delete.png" class="comment-delete-image2" data-blog_comment="{{sub}}" bindtap="deleteComment"></image>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<!-- 底部操作栏 -->
+<view class='opr'>
+  <!-- 发表一级评论 -->
+  <view class='opr-comment' bindtap="showFatherCommentModel">说点什么吧...</view> 
+  <!-- 点赞博客按钮 -->
+  <view class="blogBottomBtn">
+    <image wx:if="{{is_liked==true}}" src="../../images/blog_detail/like_selected.png" class="bottom-img" bindtap="likeBlog"></image>
+    <image wx:else src="../../images/blog_detail/like.png" class="bottom-img" bindtap="likeBlog"></image>
+    <text class="blogBottomNum">{{blog.likes}}</text>
+  </view>
+  <!-- 收藏博客按钮 -->
+  <view class="blogBottomBtn">
+    <image wx:if="{{is_stared==true}}" src="../../images/blog_detail/star_selected.png" class="bottom-img" bindtap="starBlog"></image>
+    <image wx:else src="../../images/blog_detail/star.png" class="bottom-img" bindtap="starBlog"></image>
+    <text class="blogBottomNum">{{blog.stars}}</text>
+  </view>
+  <!-- 评论博客按钮 -->
+  <view class="blogBottomBtn">
+    <image src="../../images/blog_detail/blog_comment.png" class="bottom-img" bindtap="showFatherCommentModel"></image>
+    <text class="blogBottomNum">{{blog.blog_comment_count}}</text>
+  </view>
+
+  <!-- 弹出框 -->
+  <!--屏幕背景变暗-->
+  <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+  <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+    <view class='publish-comment-cnt'>
+      <textarea class='publish-comment-ipt' placeholder-class='publish-comment-placeholder' placeholder='说点什么吧...' auto-focus maxlength='600' bindinput='onInput'></textarea>
+    </view>
+    <!-- js中判断发布的是一级还是二级评论 -->
+    <view class="publish-comment-btn {{!commentValue ? 'dis' : ''}}" bindtap='publishComment'>发表评论</view>
+  </view>
+</view>

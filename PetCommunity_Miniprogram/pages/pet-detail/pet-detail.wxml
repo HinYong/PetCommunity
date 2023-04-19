@@ -1,0 +1,110 @@
+<!--pages/detail/detail.wxml-->
+<import src="../../utils/wxParse/wxParse.wxml" />
+<view class='top'>
+  <swiper indicator-dots='true' autoplay="true" duration="1200" class="hot-card">
+    <swiper-item wx:for="{{pet.swiper_List}}" wx:for-item='swiper_image' wx:key="index">
+      <image class="img" src="{{swiper_image}}" data-imageslist="{{pet.swiper_List}}" data-imageId="{{index}}" bindtap="showImage"></image>
+    </swiper-item>
+  </swiper>
+  <view class="name-block">
+    <view class="order-card">
+      <view class="context">
+        <view class="top-name">{{pet.name}}</view>
+        <view class="top-source">{{pet.pet_type.pet_type_name}}</view>
+      </view>
+    </view>
+  </view>
+
+
+  <!-- 宠物基本信息栏 -->
+  <view wx:if="{{pet.english_name != null||pet.character != null||pet.hometown != null||pet.illness != null||pet.lifetime != null||pet.common_price != null}}">
+    <view class='separator'>
+      <image src="/images/line-black.png" class='separator-line'></image>
+      <view class='separator-text'>宠物基本信息栏</view>
+      <image src="/images/line-black.png" class='separator-line'></image>
+    </view>
+    <view class="order-block">
+      <view class="order-card">
+        <view class="context">
+          <view class="orderinfo" wx:if="{{pet.english_name != null}}">英文名：{{pet.english_name}}</view>
+          <view class="orderinfo" wx:if="{{pet.character != null}}">性格：{{pet.character}}</view>
+          <view class="orderinfo" wx:if="{{pet.hometown != null}}">祖籍：{{pet.hometown}}</view>
+          <view class="orderinfo" wx:if="{{pet.illness != null}}">易患病：{{pet.illness}}</view>
+          <view class="orderinfo" wx:if="{{pet.lifetime != null}}">寿命：{{pet.lifetime}}</view>
+          <view class="orderinfo" wx:if="{{pet.common_price != null}}">市场价：{{pet.common_price}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <!-- 宠物简介 -->
+  <view wx:if="{{pet.introduce != 'None'}}">
+    <view class='separator'>
+      <image src="/images/line-black.png" class='separator-line'></image>
+      <view class='separator-text'>宠物简介</view>
+      <image src="/images/line-black.png" class='separator-line'></image>
+    </view>
+    <view class="order-block">
+      <view class="order-card">
+        <view class="context">
+          <view class="orderinfo">{{pet.introduce}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 宠物外观特征 -->
+  <view wx:if="{{pet.appearance != 'None'}}">
+    <view class='separator'>
+      <image src="/images/line-black.png" class='separator-line'></image>
+      <view class='separator-text'>宠物外观特征</view>
+      <image src="/images/line-black.png" class='separator-line'></image>
+    </view>
+    <view class="order-block">
+      <view class="order-card">
+        <view class="context">
+          <view class="orderinfo">{{pet.appearance}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 宠物性格特征或生活环境 -->
+  <view wx:if="{{pet.character_detail != 'None'}}">
+    <!-- 若是猫或者狗，则是性格特征 -->
+    <view class='separator' wx:if="{{pet.pet_id==1||pet.pet_id==2}}">
+      <image src="/images/line-black.png" class='separator-line'></image>
+      <view class='separator-text'>宠物性格特征</view>
+      <image src="/images/line-black.png" class='separator-line'></image>
+    </view>
+    <!-- 若是小宠或者水族，则是饲养环境 -->
+    <view class='separator' wx:else>
+      <image src="/images/line-black.png" class='separator-line'></image>
+      <view class='separator-text'>宠物饲养环境</view>
+      <image src="/images/line-black.png" class='separator-line'></image>
+    </view>
+    <view class="order-block">
+      <view class="order-card">
+        <view class="context">
+          <view class="orderinfo">{{pet.character_detail}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 宠物饲养建议 -->
+  <view wx:if="{{pet.feed_knowledge != 'None'}}">
+    <view class='separator'>
+      <image src="/images/line-black.png" class='separator-line'></image>
+      <view class='separator-text'>宠物饲养建议</view>
+      <image src="/images/line-black.png" class='separator-line'></image>
+    </view>
+    <view class="order-block">
+      <view class="order-card">
+        <view class="context">
+          <view class="orderinfo">{{pet.feed_knowledge}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="bottom"></view>
+</view>

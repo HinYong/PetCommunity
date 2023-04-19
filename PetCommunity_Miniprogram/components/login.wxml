@@ -1,0 +1,12 @@
+<!--components/login.wxml-->
+<view class="login-card">
+  <button class="image-btn" hover-class="btn-hover" open-type="getUserInfo" bindgetuserinfo="onTapLogin">
+      <image class="login-head" src="/images/unlogin.png"></image>
+  </button>
+  <view class="login-info">
+    <view class="login-text">未登录</view>
+    <view class="login-tips">点击微信登录后可方便购物</view>
+  </view>
+</view>
+<button class="login-btn" open-type="getUserInfo" bindgetuserinfo="onTapLogin" hover-class="btn-hover"> 
+微信登录</button>

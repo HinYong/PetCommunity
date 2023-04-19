@@ -1,0 +1,26 @@
+/* pages/address/createnewaddress/create-new-address.wxss */
+
+.btn-area{
+  margin-top: 200rpx;
+}
+
+button.submit{
+  margin-left: 100rpx; 
+  margin-right: 100rpx; 
+  margin-bottom: 30rpx;
+  padding:20rpx, 60rpx; 
+  border: none;
+  border-radius: 50rpx; 
+  background: #3bd12e;
+  color: #f8f8f8;
+}
+
+button.reset{
+  margin-left: 100rpx; 
+  margin-right: 100rpx; 
+  padding:20rpx, 60rpx; 
+  border: none;
+  border-radius: 50rpx; 
+  background: #d12e2e;
+  color: #f8f8f8;
+}

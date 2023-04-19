@@ -1,0 +1,118 @@
+/* pages/pet-adopt/pet-adopt.wxss */
+
+.part-content{
+  justify-content: center;
+  margin: auto;
+}
+
+.part-content-item{
+  padding-bottom: 10rpx;
+  border-bottom: 5rpx rgb(240, 242, 243) solid ;
+}
+
+.adopt-block {
+  margin: 0 26rpx 26rpx;
+  background: #fff;
+  box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.05);
+  border-radius: 13rpx;
+}
+
+.adopt-card {
+  display: flex;
+  align-items: center;
+  margin-left: 25rpx;
+  margin-right: 23rpx;
+  min-height: 300rpx;
+}
+
+.adopt-image {
+  flex-shrink: 0;
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.adopt-info {
+  flex: 1;
+  margin-left: 34rpx;
+  height: 100%;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+
+.adopt-name {
+  color: rgba(29, 29, 38, 0.8);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5; /* 指定显示文本的行数 */
+  overflow: hidden; /* 超出隐藏 */
+  text-overflow: ellipsis; /* 超出部分显示省略号 */
+  font-size: medium;
+  line-height: 50rpx;
+}
+
+.empty-list {
+  display: flex;
+  flex-direction: column;
+  margin: 40rpx 30rpx;
+  background: white;
+  border-radius: 15rpx;
+  box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.05);
+  height: 610px;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 导航栏 */
+.navbar{
+  flex: none;
+  display: flex;
+  background: #fff;
+  position: fixed;
+  width: 100%;
+  z-index: 1024;
+}
+.navbar .item{
+  position: relative;
+  flex: auto;
+  text-align: center;
+  line-height: 80rpx;
+}
+.navbar .item.active{
+  color: #FFCC00;
+}
+.navbar .item.active:after{
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4rpx;
+  background: #FFCC00;
+}
+
+/* 底部栏 */
+.opr {
+  position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    border-top: 5rpx rgb(240, 242, 243) solid;
+    padding: 20rpx;
+    padding-bottom: 40rpx;
+    background: white;
+}
+
+.opr-my {
+  flex: 1;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #000000c9;
+  background: #ffcc00a3;
+  border-radius: 50rpx;
+}

@@ -1,0 +1,316 @@
+/* pages/payment/select-address/select-address.wxss */
+.order-head {
+  margin: 40rpx 30rpx 35rpx;
+  display: flex;
+  align-items: center;
+}
+
+.order-head-line {
+  width: 21rpx;
+  height: 34rpx;
+}
+
+.order-head-text {
+  margin-left: 10rpx;
+  font-size: 30rpx;
+  line-height: 33rpx;
+  color: rgba(52, 55, 61, 0.8);
+}
+
+.trolley-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 24rpx;
+  padding-block-start: 30rpx;
+}
+
+.trolley-total {
+  display: flex;
+  align-items: center;
+  padding-left: 35rpx;
+  font-size: 32rpx;
+}
+
+.trolley-check-wrapper {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  background: #ececee;
+}
+
+.trolley-check-wrapper.white {
+  background: #fff;
+}
+
+.trolley-check-wrapper.check {
+  background: #3bd12e;
+}
+
+.trolley-check {
+  width: 22rpx;
+  height: 16rpx;
+}
+
+.trolley-total-text, .trolley-edit, .bottom-text {
+  margin-left: 18rpx;
+  margin-right: 33rpx;
+  color: rgb(52, 55, 61, 0.8);
+  font-size: 30rpx;
+  line-height: 33rpx;
+}
+
+.product-list {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 86rpx;
+  bottom: 100rpx;
+  padding-bottom: 10rpx;
+  padding-top: 10rpx;
+}
+
+.product-card {
+  display: flex;
+  align-items: center;
+  margin: 0 26rpx 26rpx;
+  padding-left: 32rpx;
+  height: 300rpx;
+  background: #fff;
+  box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.05);
+  border-radius: 13rpx;
+}
+
+.product-info {
+  flex: 1;
+  padding: 38rpx 28rpx 0 36rpx;
+  height: 100%;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+
+.product-img {
+  flex-shrink: 0;
+  margin-left: 31rpx;
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.product-name {
+  color: rgba(29, 29, 38, 0.8);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5; /* 指定显示文本的行数 */
+  overflow: hidden; /* 超出隐藏 */
+  text-overflow: ellipsis; /* 超出部分显示省略号 */
+  padding-bottom: 10rpx;
+}
+
+.product-price {
+  margin-top: 3rpx;
+}
+
+.product-count {
+  text-align: right;
+}
+
+.product-count-edit {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.count-add {
+  width: 45rpx;
+  height: 45rpx;
+  line-height: 36rpx;
+  border-radius: 50%;
+  background: #3bd12e;
+  text-align: center;
+  padding-top: 5rpx;
+  font-size: 45rpx;
+  font-weight: 1200;
+  color: #f8f8f8;
+}
+
+.count-minus{
+  width: 45rpx;
+  height: 45rpx;
+  line-height: 36rpx;
+  border-radius: 50%;
+  background: #3bd12e;
+  text-align: center;
+  font-size: 45rpx;
+  font-weight: 1200;
+  color: #f8f8f8;
+}
+
+.count-now {
+  margin: 0 18rpx;
+}
+
+.bottom-button {
+  margin: 100rpx 100rpx;
+  background: #3bd12e;
+  border: none;
+  border-radius: 50rpx;
+  padding:20rpx, 60rpx; 
+  color: #f8f8f8;
+}
+
+.bottom-text {
+  flex: 1;
+  text-align: right;
+  opacity: 0.5;
+  margin-right: 5rpx;
+}
+
+.bottom-price {
+  font-size: 30rpx;
+  line-height: 42rpx;
+  margin-right: 20rpx;
+}
+
+.btn-hover{
+  position: relative;
+  top: 3rpx;
+  box-shadow:0px 0px 10px #bbbec4 inset; 
+}
+
+.image-btn{
+  flex-shrink: 0;
+  height: 45rpx;
+  width: 45rpx;
+  border-radius: 50%;
+  padding: 0;
+  background-color: transparent;   /*按钮透明*/  
+  border:none;				/*设置按钮边框*/
+} 
+
+.image-btn-content {
+  flex-shrink: 0;
+  height: 45rpx;
+  width: 45rpx;
+  border-radius: 50%;
+  margin-bottom: 20rpx;
+}
+
+.address {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.item {
+  margin-top: 20rpx;
+  margin-bottom: 15rpx;
+  background-color: #fff;
+  padding: 20rpx 10rpx;
+  padding-right: 0;
+  display: flex;
+  box-sizing: border-box;
+  height: 220rpx;
+}
+
+/* 除删除按钮之外的其他部分 */
+.item-left {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  /* 关键代码 start */
+  width: 100%;
+  margin-left: -140rpx;
+  transform: translateX(140rpx);
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  -webkit-transform: translateX(140rpx);
+  /* 关键代码 end */
+}
+
+.imgs {
+  width: 130rpx;
+  height: 130rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.imgs image {
+  width: 130rpx;
+  height: 130rpx;
+  display: block;
+}
+
+.context {
+  padding-left: 20rpx;
+  padding-right: 20rpx;
+}
+
+.context .title {
+  color: #333;
+  font-size: 34rpx;
+}
+
+.context .bottoms {
+  display: flex;
+  padding-top: 20rpx;
+}
+
+/* 删除按钮 */
+.delete {
+  flex-shrink:0 ;
+  height: 100rpx;
+  width: 100rpx;
+  margin-top: 40rpx;
+  margin-right: 20rpx;
+  background-color: rgb(241, 81, 81);
+  display: flex;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  font-size: 32rpx;
+  color: #fff;
+  /* 关键代码 start */
+  transform: translateX(300rpx);
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  -webkit-transform: translateX(300rpx);
+  /* 关键代码 end */
+}
+
+.edit {
+  flex-shrink:0 ;
+  height: 100rpx;
+  width: 100rpx;
+  margin-top: 40rpx;
+  margin-right: 20rpx;
+  background-color: #3bd12e;
+  display: flex;
+  border-radius: 50%;
+  justify-content: center;
+  align-items: center;
+  font-size: 32rpx;
+  color: #fff;
+  /* 关键代码 start */
+  transform: translateX(300rpx);
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  -webkit-transform: translateX(300rpx);
+  /* 关键代码 end */
+}
+
+/* 关键代码 start --> 向左滑动 */
+.touch-move-active .item-left,
+.touch-move-active .delete,
+.touch-move-active .edit {
+  -webkit-transform: translateX(0);
+  transform: translateX(0);
+}
+/* 关键代码 end */
+

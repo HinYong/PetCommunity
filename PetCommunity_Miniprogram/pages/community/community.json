@@ -1,0 +1,6 @@
+{
+  "usingComponents": {},
+  "navigationBarTitleText": "爱宠社区",
+  "backgroundTextStyle":"dark",
+  "enablePullDownRefresh":true
+}

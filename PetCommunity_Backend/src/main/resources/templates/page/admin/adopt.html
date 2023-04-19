@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>领养需求管理</title>
+    <link rel="stylesheet" href="../../assets/libs/layui/css/layui.css"/>
+    <link rel="stylesheet" href="../../assets/module/admin.css?v=315"/>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        #tableTbImg + .layui-table-view .layui-table-body tbody > tr > td {
+            padding: 0;
+        }
+
+        #tableTbImg + .layui-table-view .layui-table-body tbody > tr > td > .layui-table-cell {
+            height: 60px;
+            line-height: 60px;
+        }
+
+        .tdImg {
+            width: 250px;
+            height: 150px;
+            max-width: none;
+            cursor: zoom-in;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- 页面加载loading -->
+<div class="page-loading">
+    <div class="ball-loader">
+        <span></span><span></span><span></span><span></span>
+    </div>
+</div>
+
+<!-- 正文开始 -->
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-body table-tool-mini full-table">
+            <div class="layui-form toolbar">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label w-auto">机构名：</label>
+                        <div class="layui-input-inline mr0">
+                            <input name="agency_name" class="layui-input" type="text" placeholder="请输入机构名"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline" style="padding-right: 110px;">
+                        <button class="layui-btn icon-btn" lay-filter="formSubSearchAdoptByAgencyName" lay-submit>
+                            <i class="layui-icon">&#xe615;</i>搜索
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label w-auto">关键字：</label>
+                        <div class="layui-input-inline mr0">
+                            <input name="Keyword" class="layui-input" type="text" placeholder="请输入关键字"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline" style="padding-right: 110px;">
+                        <button class="layui-btn icon-btn" lay-filter="formSubSearchAdoptByKeyword" lay-submit>
+                            <i class="layui-icon">&#xe615;</i>搜索
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <table class="layui-table" id="tableAdopt" lay-filter="tableAdopt"></table>
+        </div>
+    </div>
+</div>
+
+<!-- 表格操作列 -->
+<script type="text/html" id="operateAdopt">
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<!--轮播图展示-->
+<script id="showImages" type="text/html">
+    {{#
+    if(d.images!=null){
+
+    var srr=d.images.split(",");
+    for(var j in srr) { srr[j]
+    }}
+    <div style="margin:0 10px; display:inline-block !important; display:inline; max-width:70px; max-height:50px;">
+        <img style=" max-width:70px; max-height:50px;" src="{{srr[j]}}" />
+    </div>
+    {{# }
+    }
+    else{
+    }}
+    <div style="margin:0 10px; display:inline-block !important; display:inline; max-width:70px; max-height:50px;">
+        暂无
+    </div>
+    {{# }
+    }}
+</script>
+
+<!--d是返回列表中的一个Adopts对象，image是当前Adopts对象的一个成员变量，图片的路径-->
+<script type="text/html" id="AdoptImg">
+    <img style="margin:0 10px; display:inline-block !important; display:inline; max-width:70px; max-height:50px;" src={{ d.image }}>
+</script>
+
+
+<!-- js部分 -->
+<script type="text/javascript" src="../../assets/libs/layui/layui.js"></script>
+<script type="text/javascript" src="../../assets/js/common.js?v=315"></script>
+<script>
+    layui.use(['layer', 'form', 'table', 'util', 'admin', 'tableX','upload'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        var util = layui.util;
+        var admin = layui.admin;
+        var tableX = layui.tableX;
+        var upload = layui.upload;
+
+        // 渲染表格
+        var insTb = table.render({
+            elem: '#tableAdopt',
+            url: '/api/getAllAdopts',
+            page: true,
+            height: "full-100",
+            toolbar: false,
+            cellMinWidth: 120,
+            cols: [
+                [
+                    {field: 'adopt_id', title: '领养需求编号'}
+                    ,{field: 'agency_name', templet: function (d) {return d.agency.agency_name}, title: '机构名称'}
+                    ,{field: 'pet_type', templet: function (d) {return d.petsType.pet_type_name}, title: '宠物种类'}
+                    ,{field: 'pet_name', title: '宠物品种'}
+                    ,{field: 'pet_age', title: '年龄'}
+                    ,{field: 'images', title: '图片', align: 'center', templet: '#showImages', width: 500}
+                    ,{field: 'pet_description', width:200, title: '宠物描述'}
+                    ,{field: 'adopt_requirement', width:200, title: '领养要求'}
+                    ,{field: 'status', width:200, templet: function (d) {
+                        if(d.status==0){
+                            return "未收到申请"
+                        }
+                        else if(d.status==1) {
+                            return "受理中"
+                        }
+                        else if(d.status==2) {
+                            return "已完成"
+                        }
+                    }, title: '状态'}
+                    ,{field: 'publish_time', width:200, templet: function (d) { return timeFormat(d.publish_time)}, title: '发布时间'}
+                    ,{field: 'finish_time', sort: true, width:200, templet: function (d) {
+                        if(d.finish_time==null){
+                            return "暂无"
+                        }
+                        else{
+                            return timeFormat(d.finish_time)}
+                        }, title: '完成时间'
+                    }
+                    ,{align: 'center', toolbar: '#operateAdopt', title: '操作', minWidth: 200}
+                ]
+            ]
+        });
+
+        // 时间格式化
+        function timeFormat(time) {
+            var d = new Date(time);
+            var year = d.getFullYear();       //年
+            var month = d.getMonth() + 1;     //月
+            var day = d.getDate();            //日
+            var hh = d.getHours();            //时
+            var mm = d.getMinutes();          //分
+            var ss = d.getSeconds();          //秒
+            var clock = year + "/";
+            if (month < 10)
+                clock += "0";
+            clock += month + "/";
+            if (day < 10)
+                clock += "0";
+            clock += day + " ";
+            if (hh < 10)
+                clock += "0";
+            clock += hh + ":";
+            if (mm < 10) clock += '0';
+            clock += mm + ":";
+            if (ss < 10) clock += '0';
+            clock += ss;
+            return (clock);
+        }
+
+        // 点击图片放大
+        $(document).off('click.tbImg').on('click.tbImg', '[tb-img]', function () {
+            layer.photos({photos: {data: [{src: $(this).attr('src')}]}, shade: .1, closeBtn: true});
+        });
+
+        // 按关键字搜索
+        form.on('submit(formSubSearchAdoptByKeyword)', function (data) {
+            insTb.reload({where: data.field,url:'/api/findAdoptsByKeyword',page : {curr : 1}}, 'data');
+        });
+
+        // 按机构名搜索
+        form.on('submit(formSubSearchAdoptByAgencyName)', function (data) {
+            insTb.reload({where: data.field,url:'/api/findAdoptsByAgencyName',page : {curr : 1}}, 'data');
+        });
+
+        // 监听表格行工具条点击事件，tool(表格名称)
+        table.on('tool(tableAdopt)', function (obj) {
+            var data = obj.data;  // 获得当前行数据对象，形式为键值对，键就是表格渲染render中的cols中每一行的field属性的值
+            var layEvent = obj.event;  // 获得 lay-event 对应的值
+            console.log(data);
+            if (layEvent === 'del') { // 删除
+                doDel(data.adopt_id);
+            }
+        });
+
+        // 删除
+        function doDel(id) {
+            layer.confirm('确定要删除吗？', {
+                skin: 'layui-layer-admin',
+                shade: .1
+            }, function (i) {
+                layer.close(i);
+                layer.load(2);
+                $.get('/api/delAdopt', {
+                    adopt_id: id
+                }, function (res) {
+                    layer.closeAll('loading');
+                    if (res.code == 200) {
+                        layer.msg(res.msg, {icon: 1});
+                        insTb.reload({}, 'data');
+                    } else {
+                        layer.msg(res.msg, {icon: 2});
+                    }
+                }, 'json');
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

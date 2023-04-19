@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "小萌书",
+  "usingComponents": {},
+  "backgroundTextStyle":"dark",
+  "enablePullDownRefresh":true
+}

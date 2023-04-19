@@ -1,0 +1,121 @@
+<!--pages/pet-adopt/my-requests/my-requests.wxml-->
+
+<!-- 顶部菜单栏 -->
+<view class="navbar">
+  <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}</text>
+</view>
+
+<!-- 未审核 -->
+<view wx:if="{{currentTab==0}}">
+  <view wx:if="{{ notprocess_List.length === 0 }}" class="empty-list">
+    <image class="empty-image" src="/images/orderlist.png"></image>
+    <view class="empty-text">暂时还没有申请</view>
+  </view>
+  <view wx:else>
+    <scroll-view class="part-content" scroll-y style="height: 680px; padding-top: 14px;" bindscrolltolower="loadMore">
+      <view wx:for="{{notprocess_List}}" wx:for-item="adopt_request" wx:key="index" class="adopt-block">
+        <view class="adopt-card" bindtap="gotoAdoptRequestDetail" data-adopt_request='{{adopt_request}}'>
+          <image class="adopt-image" mode="widthFix" src="{{adopt_request.adopt.images_List[0]}}"></image>
+          <view class="adopt-info">
+            <view class="adopt-name">宠物品种：{{adopt_request.adopt.pet_name}}</view>
+            <view class="adopt-name">宠物年龄：{{adopt_request.adopt.pet_age}}</view>
+            <view class="adopt-name">机构：{{adopt_request.adopt.agency.agency_name}}</view>
+            <view class="adopt-name">发布于：{{adopt_request.adopt.publish_time1}}</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+
+<!-- 初审通过 -->
+<view wx:elif="{{currentTab==1}}">
+  <view wx:if="{{ preagree_List.length === 0 }}" class="empty-list">
+    <image class="empty-image" src="/images/orderlist.png"></image>
+    <view class="empty-text">暂时还没有申请</view>
+  </view>
+  <view wx:else>
+    <scroll-view class="part-content" scroll-y style="height: 720px; padding-top: 14px;" bindscrolltolower="loadMore">
+      <view wx:for="{{preagree_List}}" wx:for-item="adopt_request" wx:key="index" class="adopt-block">
+        <view class="adopt-card" bindtap="gotoAdoptRequestDetail" data-adopt_request='{{adopt_request}}'>
+          <image class="adopt-image" mode="widthFix" src="{{adopt_request.adopt.images_List[0]}}"></image>
+          <view class="adopt-info">
+            <view class="adopt-name">宠物品种：{{adopt_request.adopt.pet_name}}</view>
+            <view class="adopt-name">宠物年龄：{{adopt_request.adopt.pet_age}}</view>
+            <view class="adopt-name">机构：{{adopt_request.adopt.agency.agency_name}}</view>
+            <view class="adopt-name">发布于：{{adopt_request.adopt.publish_time1}}</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+
+<!-- 已完成 -->
+<view wx:elif="{{currentTab==2}}">
+  <view wx:if="{{ finish_List.length === 0 }}" class="empty-list">
+    <image class="empty-image" src="/images/orderlist.png"></image>
+    <view class="empty-text">暂时还没有申请</view>
+  </view>
+  <view wx:else>
+    <scroll-view class="part-content" scroll-y style="height: 720px; padding-top: 14px;" bindscrolltolower="loadMore">
+      <view wx:for="{{finish_List}}" wx:for-item="adopt_request" wx:key="index" class="adopt-block">
+        <view class="adopt-card" bindtap="gotoAdoptRequestDetail" data-adopt_request='{{adopt_request}}'>
+          <image class="adopt-image" mode="widthFix" src="{{adopt_request.adopt.images_List[0]}}"></image>
+          <view class="adopt-info">
+            <view class="adopt-name">宠物品种：{{adopt_request.adopt.pet_name}}</view>
+            <view class="adopt-name">宠物年龄：{{adopt_request.adopt.pet_age}}</view>
+            <view class="adopt-name">机构：{{adopt_request.adopt.agency.agency_name}}</view>
+            <view class="adopt-name">发布于：{{adopt_request.adopt.publish_time1}}</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+
+<!-- 已拒绝 -->
+<view wx:elif="{{currentTab==3}}">
+  <view wx:if="{{ refuse_List.length === 0 }}" class="empty-list">
+    <image class="empty-image" src="/images/orderlist.png"></image>
+    <view class="empty-text">暂时还没有申请</view>
+  </view>
+  <view wx:else>
+    <scroll-view class="part-content" scroll-y style="height: 720px; padding-top: 14px;" bindscrolltolower="loadMore">
+      <view wx:for="{{refuse_List}}" wx:for-item="adopt_request" wx:key="index" class="adopt-block">
+        <view class="adopt-card" bindtap="gotoAdoptRequestDetail" data-adopt_request='{{adopt_request}}'>
+          <image class="adopt-image" mode="widthFix" src="{{adopt_request.adopt.images_List[0]}}"></image>
+          <view class="adopt-info">
+            <view class="adopt-name">宠物品种：{{adopt_request.adopt.pet_name}}</view>
+            <view class="adopt-name">宠物年龄：{{adopt_request.adopt.pet_age}}</view>
+            <view class="adopt-name">机构：{{adopt_request.adopt.agency.agency_name}}</view>
+            <view class="adopt-name">发布于：{{adopt_request.adopt.publish_time1}}</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+
+<!-- 已取消 -->
+<view wx:elif="{{currentTab==4}}">
+  <view wx:if="{{ cancel_List.length === 0 }}" class="empty-list">
+    <image class="empty-image" src="/images/orderlist.png"></image>
+    <view class="empty-text">暂时还没有申请</view>
+  </view>
+  <view wx:else>
+    <scroll-view class="part-content" scroll-y style="height: 720px; padding-top: 14px;" bindscrolltolower="loadMore">
+      <view wx:for="{{cancel_List}}" wx:for-item="adopt_request" wx:key="index" class="adopt-block">
+        <view class="adopt-card" bindtap="gotoAdoptRequestDetail" data-adopt_request='{{adopt_request}}'>
+          <image class="adopt-image" mode="widthFix" src="{{adopt_request.adopt.images_List[0]}}"></image>
+          <view class="adopt-info">
+            <view class="adopt-name">宠物品种：{{adopt_request.adopt.pet_name}}</view>
+            <view class="adopt-name">宠物年龄：{{adopt_request.adopt.pet_age}}</view>
+            <view class="adopt-name">机构：{{adopt_request.adopt.agency.agency_name}}</view>
+            <view class="adopt-name">发布于：{{adopt_request.adopt.publish_time1}}</view>
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

@@ -1,0 +1,90 @@
+<!--pages/detail/detail.wxml-->
+<import src="../../utils/wxParse/wxParse.wxml" />
+<view class='top'>
+  <swiper indicator-dots='true' autoplay="true" duration="1200" class="hot-card">
+    <swiper-item wx:for="{{product.swiper_List}}" wx:for-item='swiper_image' wx:key="index">
+      <image class="img" src="{{swiper_image}}" data-imageslist="{{product.swiper_List}}" data-imageId="{{index}}" bindtap="showImage"></image>
+    </swiper-item>
+  </swiper>
+  <!-- <image src="{{product.image}}" class='top-image'></image> -->
+  <view class='top-name'>{{product.name}}</view>
+  <view class='top-source'>{{product.type.name}}</view>
+  <view class='top-price-item'>
+    <view class='top-price'>{{product.price}}</view>
+    <view class='top-money'>￥</view>
+  </view>
+</view>
+<view class='service'>
+  <view class='service-promise'>
+    <image src="/images/check-green.png" class='service-check'></image>
+    <view class='service-promise-text'>7天免费退换</view>
+  </view>
+  <view class='service-promise'>
+    <image src="/images/check-green.png" class='service-check'></image>
+    <view class='service-promise-text'>24小时内发货并赠送运费险</view>
+  </view>
+  <view class='line'></view>
+  <view class='evaluation-wrapper' bindtap='onTapCommentEntry'>
+    <view class='evaluation'>
+      <view class='evaluation-title'>已买评价</view>
+      <view class='evaluation-num'>{{reviewCount}} 条</view>
+      <image src="/images/grey-arrow.png" class='evaluation-right'></image>
+    </view>
+  </view>
+</view>
+
+<view class='separator'>
+  <image src="/images/line-black.png" class='separator-line'></image>
+  <view class='separator-text'>猜你喜欢</view>
+  <image src="/images/line-black.png" class='separator-line'></image>
+</view>
+<view>
+  <view wx:for='{{recomList}}' wx:if='{{ index%2 === 0 }}' wx:key='list' class='list'>
+    <navigator url="/pages/detail/detail?id={{item._id}}" wx:for='{{[recomList[index],recomList[index+1]]}}' class='list-item list-item-right'>
+      <image src="{{item.image}}" class='list-item-image'></image>
+      <view class='list-item-title'>{{item.name}}</view>
+      <view class='list-item-bottom'>
+        <view class='list-item-bottom-icon'>￥</view>
+        <view class='list-item-bottom-price'>{{item.price}}</view>
+      </view>
+    </navigator>
+  </view>
+</view>
+
+<!-- 商品在售 -->
+<view class='opr' wx:if="{{product.status==1}}">
+  <view class='opr-trolley' bindtap='addToTrolley'>加入购物车</view>
+  <view class='opr-buy' bindtap="buyDirectly">立即购买</view> 
+  <!--屏幕背景变暗-->
+  <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+  <!-- 弹出框 -->
+  <view animation="{{animationData}}" class="commodity_attr_box" wx:if="{{showModalStatus}}">
+    <view class="detail-block" >
+      <view class="detail-card">
+        <image class="detail-image" mode="widthFix" src="{{product.image}}"></image>
+        <view class="detail-info">
+          <view class="detail-name">{{product.name}}</view>
+          <view class="detail-price">¥ {{product.price}}</view>
+        </view>
+      </view>
+    </view>
+    <view class='product-count-edit'>
+      <view class="count">数量</view>
+      <view class="image-btn" hover-class="btn-hover" bindtap='adjustCount' data-type="reduce">
+        <image class="image-btn-content" src="/images/minus.png"></image>
+      </view>
+      <view class='count-now'>{{count}}</view>
+      <view class="image-btn" hover-class="btn-hover" bindtap='adjustCount' data-type="add">
+        <image class="image-btn-content" src="/images/add.png"></image>
+      </view>
+    </view>
+    <view class="btn-area">
+      <button class="pay" bindtap="gotoPayment">立即购买</button>
+    </view>
+  </view>
+</view>
+
+<!-- 商品下架了 -->
+<view class='opr' wx:else>
+  <view class='opr-soldout'>该商品目前已下架</view>
+</view>

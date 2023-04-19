@@ -1,0 +1,50 @@
+<!--pages/payment/payment.wxml-->
+
+<wxs module="filters" src="/utils/filters.wxs"></wxs>
+
+<view>
+  <view class='order-head'>
+      <image src="/images/line-black.png" class='order-head-line'></image>
+      <view class='order-head-text'>收件人</view>
+  </view>
+  <view class="order-block">
+    <view class="order-card" bindtap="changeAddress">
+      <view class="imgs">
+        <image src="/images/address_payment.png"></image>
+      </view>
+      <view wx:if="{{haveAddress}}" class="context">
+        <view class="title">{{defaultAddress.receiver_name}} {{defaultAddress.receiver_phone}}</view>
+        <view class="bottoms">{{defaultAddress.province}} {{defaultAddress.city}} {{defaultAddress.area}} {{defaultAddress.detail_address}}</view>
+      </view>
+      <view wx:else class="context">
+        <view class="create-add">您还未添加任何地址，请点击添加地址</view>
+      </view>
+    </view>
+  </view>
+  
+  <view class='order-head'>
+    <image src="/images/line-black.png" class='order-head-line'></image>
+    <view class='order-head-text'>订单详情</view>
+  </view>
+  <scroll-view class='product-list' scroll-y scroll-with-animation enable-back-to-top>
+    <view wx:for="{{needToPayProductList}}" wx:for-index="index" wx:for-item="block" wx:key="id" class="order-block">
+      <view class="order-card">
+        <image class="order-image" mode="widthFix" src="{{block.goods.image}}"></image>
+        <view class="order-info">
+          <view class="order-name">{{block.goods.name}}</view>
+          <view class="order-price">¥ {{block.goods.price}}</view>
+        </view>
+        <view class="order-opr">
+          <view class="order-count">x{{block.count}}</view>
+          <view class="item-total-price">小计：¥ {{filters.toFix(block.goods.price*block.count)}}</view>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class='bottom'>
+    <view class='bottom-text'>总价</view>
+    <view class='bottom-price'>￥{{ TotalPrice }}</view>
+    <view class="bottom-pay {{trolleyAccount ? 'canpay' : ''}}" bindtap='onTapPay'>支付</view>
+  </view>
+</view>

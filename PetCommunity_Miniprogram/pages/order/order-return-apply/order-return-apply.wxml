@@ -1,0 +1,49 @@
+<!--pages/order/order-return/order-return.wxml-->
+
+<view class='order-head'>
+  <image src="/images/line-black.png" class='order-head-line'></image>
+  <view class='order-head-text'>商品详情</view>
+</view>
+<view class="order-block" >
+  <navigator url="/pages/detail/detail?id={{orderitem.goods_id}}" class="order-card">
+    <image class="order-image" mode="widthFix" src="{{orderitem.goods.image}}"></image>
+    <view class="order-info">
+      <view class="order-name">{{orderitem.goods.name}}</view>
+      <view class="order-price">¥ {{orderitem.goods.price}}</view>
+    </view>
+    <view class="order-opr">
+      <view class="order-count">x{{orderitem.count}}</view>
+      <view class="item-total-price">小计：¥ {{orderitem.item_totalPrice}}</view>
+    </view>
+  </navigator>
+</view>
+
+<view class='order-head'>
+  <image src="/images/line-black.png" class='order-head-line'></image>
+  <view class='order-head-text'>退货地址</view>
+</view>
+<view class="order-block">
+  <view class="order-card">
+    <view class="imgs">
+      <image src="/images/address_payment.png"></image>
+    </view>
+    <view class="context">
+      <view class="title">{{Address.receiver_name}} {{Address.receiver_phone}}</view>
+      <view class="bottoms">{{Address.province}} {{Address.city}} {{Address.area}} {{Address.detail_address}}</view>
+    </view>
+  </view>
+</view>
+
+<view class='order-head'>
+  <image src="/images/line-black.png" class='order-head-line'></image>
+  <view class='order-head-text'>退货信息填写</view>
+</view>
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <view wx:for="{{form}}" wx:key="index">
+    <aw-input wx:if="{{item.type === 'input'}}" formItem='{{item}}' index='{{index}}'></aw-input>
+	</view>
+  <view class="btn-area">
+    <button class="submit" form-type="submit">提交</button>
+    <button class="reset" form-type="reset">清空</button>
+  </view> 
+</form>

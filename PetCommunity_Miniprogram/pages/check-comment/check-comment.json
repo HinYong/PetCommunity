@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "查看评价",
+  "usingComponents": {
+    "product": "/components/product"
+  }
+}

@@ -1,0 +1,119 @@
+/* pages/check-comment/check-comment.wxss */
+
+.comment-cnt {
+  margin: 29rpx 27rpx 0;
+  background: #fff;
+  box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.05);
+  border-radius: 10rpx;
+}
+
+.comment-show {
+  width: 100%;
+  padding: 60rpx 60rpx 60rpx 60rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+}
+
+.comment-placeholder {
+  color: rgba(29, 29, 38, 0.4);
+}
+
+.preview-cnt {
+  display: flex;
+  margin-top: 29rpx;
+  margin-left: 29rpx;
+}
+
+.preview-image {
+  margin-right: 10rpx;
+  width: 180rpx;
+  height: 180rpx;
+  border-radius: 5rpx;
+}
+
+.opr-upload {
+  display: block;
+  margin-top: 29rpx;
+  margin-left: 29rpx;
+  width: 43rpx;
+  height: 43rpx;
+}
+
+.comment-btn {
+  margin: 34rpx auto;
+  width: 250rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  background: #f5e069;
+  border-radius: 10rpx;
+  font-size: 30rpx;
+  color: #34373d;
+}
+
+.comment-btn.dis {
+  color: rgba(52, 55, 61, 0.5);
+}
+
+.order-head {
+  margin: 40rpx 30rpx 20rpx;
+  display: flex;
+  align-items: center;
+}
+
+.order-head-line {
+  width: 21rpx;
+  height: 34rpx;
+}
+
+.order-head-text {
+  margin-left: 10rpx;
+  font-size: 30rpx;
+  line-height: 33rpx;
+  color: rgba(52, 55, 61, 0.8);
+}
+
+.item-block {
+  margin: 0 26rpx 26rpx;
+  background: #fff;
+  box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.05);
+  border-radius: 13rpx;
+  padding-bottom: 30rpx;
+}
+
+.item-card {
+  display: flex;
+  align-items: center;
+  margin-left: 19rpx;
+  margin-right: 23rpx;
+  height: 300rpx;
+}
+
+.order-image {
+  flex-shrink: 0;
+  width: 160rpx;
+  height: 160rpx;
+}
+
+.order-info {
+  flex: 1;
+  padding: 34rpx;
+  height: 100%;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+
+.order-name {
+  color: rgba(29, 29, 38, 0.8);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5; /* 指定显示文本的行数 */
+  overflow: hidden; /* 超出隐藏 */
+  text-overflow: ellipsis; /* 超出部分显示省略号 */
+}
+
+.order-price {
+  margin-top: 12rpx;
+  font-weight: bold;
+}

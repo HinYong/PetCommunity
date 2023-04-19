@@ -1,0 +1,118 @@
+<!--pages/order/order-return-detail/order-return-detail.wxml-->
+<wxs module="filters" src="/utils/filters.wxs"></wxs>
+
+<view>
+  <view class='order-head'>
+    <image src="/images/line-black.png" class='order-head-line'></image>
+    <view class='order-head-text'>退款状态</view>
+  </view>
+  <!-- 发货状态显示，未发货，已发货，已完成 -->
+  <view class="order-block">
+    <view class="order-card">
+      <view class="imgs">
+        <image src="/images/orderstatus.png"></image>
+      </view>
+      <view wx:if="{{returnitem.return_status==1}}" class="context">
+        <view class="title">卖家通过退货申请，等待验收</view>
+      </view>
+      <view wx:elif="{{returnitem.return_status==2}}" class="context">
+        <view class="title">卖家同意退货，退款已原路退回，请查收并点击确认收货</view>
+      </view>
+      <view wx:else class="context">
+        <view class="title">卖家拒绝退货，退回物流信息详见下方</view>
+      </view>
+    </view>
+  </view>
+
+  <view class='order-head'>
+    <image src="/images/line-black.png" class='order-head-line'></image>
+    <view class='order-head-text'>退货物流信息</view>
+  </view>
+  <view class="order-block">
+    <view class="order-card">
+      <view class="imgs">
+        <image src="/images/delivery.png"></image>
+      </view>
+      <view class="context">
+        <view class="title">物流公司：{{returnitem.return_delivery_company}}</view>
+        <view class="bottoms">物流单号：{{returnitem.return_delivery_id}}</view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 退款商品信息 -->
+  <view class='order-head'>
+    <image src="/images/line-black.png" class='order-head-line'></image>
+    <view class='order-head-text'>订单项信息</view>
+  </view>
+  <view class="item-block">
+    <navigator url="/pages/detail/detail?id={{returnitem.goods_id}}" class="item-card">
+      <image class="order-image" mode="widthFix" src="{{returnitem.goods.image}}"></image>
+      <view class="order-info">
+        <view class="order-name">{{returnitem.goods.name}}</view>
+        <view class="order-price">¥ {{returnitem.goods.price}}</view>
+      </view>
+      <view class="order-opr">
+        <view class="order-count-2">x{{orderitem.count}}</view>
+        <view class="item-total-price">小计：¥ {{orderitem.item_totalPrice}}</view>
+      </view>
+    </navigator>
+  </view>
+
+  <!-- 订单信息 -->
+  <view class='order-head'>
+      <image src="/images/line-black.png" class='order-head-line'></image>
+      <view class='order-head-text'>订单信息</view>
+  </view>
+  <view class="order-block">
+    <view class="order-card-2">
+      <view class="imgs">
+        <image src="/images/orderinfo.png"></image>
+      </view>
+      <view class="context">
+        <view class="orderinfo">退款原因：{{returnitem.return_reason}}</view>
+        <view class="orderinfo">申请件数：{{returnitem.return_count}}</view>
+        <view class="orderinfo">应退金额：{{returnitem.return_totalPrice}}</view>
+        <view class="orderinfo">订单编号：{{returnitem.order_id}}</view>
+        <view class="orderinfo">退款编号：{{returnitem.return_id}}</view>
+        <view class="orderinfo">申请时间：{{returnitem.return_apply_time}}</view>
+        <view wx:if="{{returnitem.return_finish_time!=null}}">
+          <view class="orderinfo">完成时间：{{returnitem.return_finish_time}}</view>
+        </view>
+        <view wx:if="{{returnitem.return_status==3}}">
+          <view class="orderinfo">拒绝退款原因：{{returnitem.refuse_return_reason}}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 若卖家拒绝退货，显示退回的物流信息 -->
+  <view wx:if="{{returnitem.return_status==3}}">
+    <view class='order-head'>
+      <image src="/images/line-black.png" class='order-head-line'></image>
+      <view class='order-head-text'>商家退回物流信息</view>
+    </view>
+    <view class="order-block">
+      <view class="order-card">
+        <view class="imgs">
+          <image src="/images/delivery-green.png"></image>
+        </view>
+        <view class="context">
+          <view class="title" wx:if="{{returnitem.refuse_delivery_company!=null}}">
+            物流公司：{{returnitem.refuse_delivery_company}}
+          </view>
+          <view class="title" wx:else>
+            物流公司：暂无
+          </view>
+          <view class="bottoms" wx:if="{{returnitem.refuse_delivery_id!=null}}">
+            物流单号：{{returnitem.refuse_delivery_id}}
+          </view>
+          <view class="bottoms" wx:else>
+            物流单号：暂无
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

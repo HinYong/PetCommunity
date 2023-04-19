@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>下架商品管理</title>
+    <link rel="stylesheet" href="../../assets/libs/layui/css/layui.css"/>
+    <link rel="stylesheet" href="../../assets/module/admin.css?v=315"/>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style>
+        #tableTbImg + .layui-table-view .layui-table-body tbody > tr > td {
+            padding: 0;
+        }
+
+        #tableTbImg + .layui-table-view .layui-table-body tbody > tr > td > .layui-table-cell {
+            height: 60px;
+            line-height: 60px;
+        }
+
+        .tdImg {
+            width: 250px;
+            height: 150px;
+            max-width: none;
+            cursor: zoom-in;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- 页面加载loading -->
+<div class="page-loading">
+    <div class="ball-loader">
+        <span></span><span></span><span></span><span></span>
+    </div>
+</div>
+
+<!-- 正文开始 -->
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-body table-tool-mini full-table">
+            <div class="layui-form toolbar">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label w-auto">商品名：</label>
+                        <div class="layui-input-inline mr0">
+                            <input name="name" class="layui-input" type="text" placeholder="请输入商品名"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline" style="padding-right: 110px;">
+                        <button class="layui-btn icon-btn" lay-filter="formSubSearchGood" lay-submit>
+                            <i class="layui-icon">&#xe615;</i>搜索
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <table class="layui-table" id="tableGood" lay-filter="tableGood"></table>
+        </div>
+    </div>
+</div>
+
+<!-- 表格操作列 -->
+<script type="text/html" id="operateGood">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="sell">上架</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="swipermanage">轮播图管理</a>
+</script>
+
+<!-- 表单弹窗 -->
+<script type="text/html" id="modelGood">
+    <form id="modelGoodForm" lay-filter="modelGoodForm" class="layui-form model-form">
+        <input name="_id" type="hidden"/>
+        <div class="layui-form-item">
+            <label class="layui-form-label">商品名</label>
+            <div class="layui-input-block">
+                <input name="name" placeholder="请输入商品名" type="text" class="layui-input"
+                       lay-verType="tips" lay-verify="required" required/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">价格</label>
+            <div class="layui-input-block">
+                <input name="price" placeholder="请输入价格" type="text" class="layui-input" maxlength="20"
+                       lay-verType="tips" lay-verify="required" required/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">属于类型</label>
+            <div class="layui-input-block">
+                <select name="type_id" lay-verify="required">
+                    <option value="">请选择属于类型</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">图片</label>
+            <div class="layui-input-block">
+                <input name="image" lay-verify="required" id="src" placeholder="图片地址"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <button type="button" style="margin-left: 80px" class="layui-btn layui-btn-primary" id="uploadPic">
+                <i class="layui-icon">&#xe67c;</i>上传图片
+            </button>
+            <button type="button" class="layui-btn layui-btn-primary" id="showPic">查看图片
+            </button>
+        </div>
+        <div class="layui-form-item text-right">
+            <button class="layui-btn layui-btn-primary" type="button" ew-event="closePageDialog">取消</button>
+            <button class="layui-btn" lay-filter="modelSubmitGood" lay-submit>保存</button>
+        </div>
+    </form>
+</script>
+
+<!--上传轮播图弹窗-->
+<script type="text/html" id="modelSwiper">
+    <form id="modelSwiperForm" lay-filter="modelSwiperForm" class="layui-form model-form">
+        <input name="_id" type="hidden"/>
+        <div class="layui-form-item">
+            <label class="layui-form-label">上传轮播图</label>
+            <div class="layui-input-inline uploadHeadImage">
+                <div class="layui-upload-drag" id="headImg">
+                    <i class="layui-icon"></i>
+                    <p>点击上传图片，或将图片拖拽到此处</p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">已上传</label>
+            <div style="margin-left: 10px">
+                <div class="layui-upload-list" id="uploaded"></div>
+                <input type="text" id="imgUrls" name="imgUrls" style="display: none;" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item text-right">
+            <button class="layui-btn layui-btn-primary" type="button" ew-event="closePageDialog">取消</button>
+            <button class="layui-btn" lay-filter="modelSubmitSwiper" lay-submit>保存</button>
+        </div>
+    </form>
+</script>
+
+<!--轮播图展示-->
+<script id="showSwiperImages" type="text/html">
+    {{# var srr=d.swiper_images.split(",");
+    for(var j in srr) { srr[j] }}
+    <div style="margin:0 10px; display:inline-block !important; display:inline;  max-width:70px; max-height:50px;">
+        <img style=" max-width:70px; max-height:50px;" src="{{srr[j]}}"/>
+    </div>
+    {{# } }}
+</script>
+
+<!--d是返回列表中的一个goods对象，image是当前goods对象的一个成员变量，图片的路径-->
+<script type="text/html" id="goodImg">
+    <img style="margin:0 10px; display:inline-block !important; display:inline; max-width:70px; max-height:50px;" src={{ d.image }}>
+</script>
+
+<!-- js部分 -->
+<script type="text/javascript" src="../../assets/libs/layui/layui.js"></script>
+<script type="text/javascript" src="../../assets/js/common.js?v=315"></script>
+<script>
+    layui.use(['layer', 'form', 'table', 'util', 'admin', 'tableX','upload'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        var util = layui.util;
+        var admin = layui.admin;
+        var tableX = layui.tableX;
+        var upload = layui.upload;
+
+        // 渲染表格
+        var insTb = table.render({
+            elem: '#tableGood',
+            url: '/api/getSoldoutGoods',
+            page: true,
+            height: "full-100",
+            toolbar: false,
+            cellMinWidth: 120,
+            cols: [
+                [
+                    {field: '_id', width:100, title: '商品编号'}
+                    ,{field: 'name', title: '商品名'}
+                    ,{field: 'type', templet: function (d) {return d.type.name}, title: '商品类型'}
+                    ,{field: 'price', sort: true,title: '商品价格'}
+                    ,{field: 'image', title: '商品主图片', templet: "#goodImg", event: 'show'}
+                    ,{field: 'swiper_images', title: '商品轮播图', align: 'center', templet: '#showSwiperImages', width: 500}
+                    ,{align: 'center', toolbar: '#operateGood', title: '操作', minWidth: 200}
+                ]
+            ]
+        });
+
+        // 点击图片放大
+        $(document).off('click.tbImg').on('click.tbImg', '[tb-img]', function () {
+            layer.photos({photos: {data: [{src: $(this).attr('src')}]}, shade: .1, closeBtn: true});
+        });
+
+        // 搜索
+        form.on('submit(formSubSearchGood)', function (data) {
+            insTb.reload({where: data.field,url:'/api/findSoldoutGoods',page : {curr : 1}}, 'data');
+        });
+
+        // 监听表格行工具条点击事件，tool(表格名称)
+        table.on('tool(tableGood)', function (obj) {
+            var data = obj.data;  // 获得当前行数据对象，形式为键值对，键就是表格渲染render中的cols中每一行的field属性的值
+            var layEvent = obj.event;  // 获得 lay-event 对应的值
+            if (layEvent === 'edit') { // 修改
+                showEditModel(data);
+            } else if (layEvent === 'swipermanage') { // 轮播图管理
+                showEditSwiperModel(data._id);
+            }
+            else if (layEvent === 'sell') { // 上架
+                doSell(data._id, data.name);
+            }
+            else if (layEvent === 'show'){
+                layer.photos(
+                    {photos: {title: "查看商品主图片", data: [{src: data.image}]}, shade: .01, closeBtn: 1, anim: 5}
+                );
+            }
+        });
+
+        // 显示表单弹窗
+        function showEditModel(mGood) {
+            var option = "";
+            // 添加商品
+            if(mGood==null){
+                admin.open({
+                    type: 1,
+                    title: '添加商品',
+                    content: $('#modelGood').html(),
+                    success: function (layero, dIndex) {
+                        $.ajax({
+                            url: '/api/getAllTypes',
+                            dataType: 'json',
+                            type: 'get',
+                            async:false,
+                            success: function (res) {
+                                if (res.code == 0){
+                                    for(var i in res.data){
+                                        // 拼接option标签
+                                        option += "<option value='"+res.data[i]['id']+"'>"+res.data[i]['name']+"</option>";
+                                    }
+                                }
+                                // 将所有商品类型添加到下拉选择框的html代码中
+                                $("[name='type_id']").append(option);
+                                // 重新渲染表单
+                                form.render()
+                            }
+                        })
+                        $('#showPic').on('click', function () {
+                            // 图片层
+                            layer.photos({
+                                photos: {data: [{src: $("#src").val()}]},
+                                shade: .1,
+                                closeBtn: true});
+                            return false;
+                        });
+                        var uploadPic = upload.render({
+                            elem: '#uploadPic' //绑定元素
+                            , url: '/upload' //上传接口
+                            , done: function (res) {
+                                //上传完毕回调
+                                if (res.code == 200) {
+                                    $("#src").val(res.msg);
+                                    layer.msg('图片上传成功',
+                                        {
+                                            icon: 1,
+                                            time: 800
+                                        });
+                                } else {
+                                    layer.msg('图片上传失败');
+                                }
+                            }
+                        });
+                        $(layero).children('.layui-layer-content').css('overflow', 'visible');
+                        var url = '/api/addGoods';
+                        // 回显数据
+                        form.val('modelGoodForm', mGood);
+                        // 表单提交事件
+                        form.on('submit(modelSubmitGood)', function (data) {
+                            console.log(data.field);
+                            layer.load(2);
+                            $.ajax({
+                                url:url,
+                                type:"POST",
+                                data:JSON.stringify(data.field), // 将表单内容解析为json格式数据传到后端
+                                contentType:"application/json; charset=utf-8",
+                                dataType:"json",
+                                success: function(res){
+                                    layer.closeAll('loading');
+                                    if (res.code == 200) {
+                                        layer.close(dIndex);
+                                        layer.msg(res.msg, {icon: 1});
+                                        insTb.reload({}, 'data');
+                                    } else {
+                                        layer.msg(res.msg, {icon: 2});
+                                    }
+                                }
+                            });
+                            return false;
+                        });
+                    }
+                });
+            }else{
+                admin.open({
+                    type: 1,
+                    title: '修改商品',
+                    content: $('#modelGood').html(),
+                    success: function (layero, dIndex) {
+                        $.ajax({
+                            url: '/api/getAllTypes',
+                            dataType: 'json',
+                            type: 'get',
+                            async:false,
+                            success: function (res) {
+                                if (res.code == 0){
+                                    for(var i in res.data){
+                                        option += "<option value='"+res.data[i]['id']+"'>"+res.data[i]['name']+"</option>";
+                                    }
+                                }
+                                $("[name='type_id']").append(option);
+                                form.render()
+                            }
+                        });
+                        $(layero).children('.layui-layer-content').css('overflow', 'visible');
+                        $('#showPic').on('click', function () {
+                            layer.photos({photos: {data: [{src: $("#src").val()}]}, shade: .1, closeBtn: true});
+                            return false;
+                        });
+                        var uploadPic = upload.render({
+                            elem: '#uploadPic' //绑定元素
+                            , url: '/upload' //上传接口
+                            , done: function (res) {
+                                //上传完毕回调
+                                if (res.code == 200) {
+                                    $("#src").val(res.msg);
+                                    layer.msg('图片上传成功',
+                                        {
+                                            icon: 1,
+                                            time: 800
+                                        });
+                                } else {
+                                    layer.msg('图片上传失败');
+                                }
+                            }
+                        });
+                        var url = '/api/updateGoods';
+                        // 回显数据
+                        form.val('modelGoodForm', mGood);
+                        // 表单提交事件
+                        form.on('submit(modelSubmitGood)', function (data) {
+                            layer.load(2);
+                            $.ajax({
+                                url:url,
+                                type:"POST",
+                                data:JSON.stringify(data.field),
+                                contentType:"application/json; charset=utf-8",
+                                dataType:"json",
+                                success: function(res){
+                                    layer.closeAll('loading');
+                                    if (res.code == 200) {
+                                        layer.close(dIndex);
+                                        layer.msg(res.msg, {icon: 1});
+                                        insTb.reload({}, 'data');
+                                    } else {
+                                        layer.msg(res.msg, {icon: 2});
+                                    }
+                                }
+                            });
+                            return false;
+                        });
+                    }
+                });
+            }
+        }
+
+        // 轮播图管理
+        function showEditSwiperModel(_id){
+            admin.open({
+                type: 1,
+                area: ['600px', '520px'],
+                title: '轮播图管理',
+                content: $('#modelSwiper').html(),
+                success: function (layero, dIndex) {
+                    // 轮播图的图片群链接
+                    var swiper_images = "";
+                    // 拖拽上传轮播图，将图片存到服务器上
+                    var uploadInst = upload.render({
+                        elem: '#headImg'
+                        , url: '/upload'
+                        , multiple: true
+                        , number: 8
+                        , before: function (obj) {
+                            //预读本地文件示例
+                            obj.preview(function (index, file, result) {
+                                $('#uploaded').append('<img src="' + result
+                                    + '" alt="' + file.name
+                                    + '"height="100px" width="100px" style="margin-right: 10px; margin-bottom: 10px;" class="layui-upload-img uploadImgPreView">')
+                            });
+                        }
+                        , done: function (res) {
+                            if (swiper_images == "") {
+                                swiper_images = res.msg.replaceAll("\"","");
+                            } else {
+                                swiper_images = swiper_images + "," + res.msg.replaceAll("\"","");
+                            }
+                            console.log(swiper_images);
+                            // 绑定数据到表单中
+                            form.val('modelSwiperForm', {"_id": _id, "imgUrls": swiper_images});
+                            // 表单提交事件，将上传图片路径传到后端
+                            form.on('submit(modelSubmitSwiper)', function (data) {
+                                layer.load(2);
+                                console.log(data.field);
+                                $.get('/api/updateSwiperImages', {
+                                    _id: data.field._id,
+                                    swiper_images: data.field.imgUrls
+                                }, function (res) {
+                                    layer.closeAll('loading');
+                                    if (res.code == 200) {
+                                        layer.close(dIndex);
+                                        layer.msg(res.msg, {icon: 1});
+                                        insTb.reload({}, 'data');
+                                    } else {
+                                        layer.msg(res.msg, {icon: 2});
+                                    }
+                                }, 'json');
+                                return false;
+                            });
+                        }
+                        , error: function () {
+                            demoText.find('.demo-reload').on('click', function () {
+                                uploadInst.upload();
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
+        // 上架
+        function doSell(id, name) {
+            layer.confirm('确定要上架“' + name + '”吗？', {
+                skin: 'layui-layer-admin',
+                shade: .1
+            }, function (i) {
+                layer.close(i);
+                layer.load(2);
+                $.get('/api/sellGoods', {
+                    _id: id
+                }, function (res) {
+                    layer.closeAll('loading');
+                    if (res.code == 200) {
+                        layer.msg(res.msg, {icon: 1});
+                        insTb.reload({}, 'data');
+                    } else {
+                        layer.msg(res.msg, {icon: 2});
+                    }
+                }, 'json');
+            });
+        }
+
+        // 删除
+        function doDel(id, name) {
+            layer.confirm('确定要删除“' + name + '”吗？', {
+                skin: 'layui-layer-admin',
+                shade: .1
+            }, function (i) {
+                layer.close(i);
+                layer.load(2);
+                $.get('/api/delGoods', {
+                    _id: id
+                }, function (res) {
+                    layer.closeAll('loading');
+                    if (res.code == 200) {
+                        layer.msg(res.msg, {icon: 1});
+                        insTb.reload({}, 'data');
+                    } else {
+                        layer.msg(res.msg, {icon: 2});
+                    }
+                }, 'json');
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

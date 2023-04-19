@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="cf3bcc83-ef1d-4cdd-a0ea-e376b6601c33" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="285ZlL5HtjdE5AEVZgntzPrI6TK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\大学课程\毕业设计\猫狗小站\宠物用品数据爬虫\Goods Information Crawlers\Crawlers" />
+      <recent name="F:\大学课程\毕业设计\猫狗小站\宠物用品数据爬虫\Goods Information Crawlers" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="GoodsCrawler" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Goods Information Crawlers" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Crawlers" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="F:\大学课程\毕业设计\猫狗小站\宠物用品数据爬虫\Goods Information Crawlers\Crawlers\GoodsCrawler.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.GoodsCrawler" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="cf3bcc83-ef1d-4cdd-a0ea-e376b6601c33" name="Default Changelist" comment="" />
+      <created>1650508556991</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1650508556991</updated>
+      <workItem from="1650508573626" duration="9460000" />
+      <workItem from="1650530564310" duration="13660000" />
+      <workItem from="1650549725708" duration="4009000" />
+      <workItem from="1650599064408" duration="216000" />
+      <workItem from="1650599725609" duration="132000" />
+      <workItem from="1653214669775" duration="3370000" />
+      <workItem from="1654504319568" duration="403000" />
+      <workItem from="1654504742651" duration="176000" />
+      <workItem from="1654506819118" duration="165000" />
+      <workItem from="1654507219848" duration="85000" />
+      <workItem from="1654754962239" duration="129000" />
+      <workItem from="1667370909009" duration="4912000" />
+      <workItem from="1667379576851" duration="36000" />
+    </task>
+    <task id="LOCAL-00001" summary="2022/4/22 商品数据爬取提交">
+      <created>1650599288784</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1650599288784</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="2022/4/22 商品数据爬取提交" />
+    <option name="LAST_COMMIT_MESSAGE" value="2022/4/22 商品数据爬取提交" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="548" y="153" key="FileChooserDialogImpl" timestamp="1667379595836">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="548" y="153" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1667379595836" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Goods_Information_Crawlers$CatsGoods.coverage" NAME="GoodsCrawler Coverage Results" MODIFIED="1650547871666" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Crawlers" />
+    <SUITE FILE_PATH="coverage/Goods_Information_Crawlers$GoodsCrawler.coverage" NAME="GoodsCrawler Coverage Results" MODIFIED="1650555836973" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Crawlers" />
+    <SUITE FILE_PATH="coverage/Goods_Information_Crawlers$GoodsCrawler__1_.coverage" NAME="GoodsCrawler (1) Coverage Results" MODIFIED="1650547849404" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Crawlers" />
+  </component>
+</project>

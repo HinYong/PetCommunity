@@ -1,0 +1,175 @@
+/* pages/pet-help/publish-help/publish-help.wxss */
+
+page{
+  background-color: #ffffff;
+}
+
+.content {
+  font-size: 30rpx;
+}
+
+.content-input {
+  background-color: #ffffff;
+  margin-bottom: 0rpx;
+  position: relative;
+  padding: 18rpx 24rpx;
+}
+
+.text-input {
+  height: 250rpx;
+  min-height: 300rpx;
+  max-height: 300rpx;
+  width: 100%;
+  z-index: 998;
+  margin: 0rpx 8rpx;
+ }
+
+ .text-input-placeholder {
+  color: rgba(29, 29, 38, 0.4);
+  font-size: 30rpx;
+}
+
+ .line {
+  height: 1px;
+  background-color: #f8f8f8;
+  margin: 18.72rpx 0;
+}
+
+.position_choose {
+  display: flex;
+  align-items: center;
+  padding-top: 10rpx;
+  padding-bottom: 10rpx;
+}
+
+ /* 图片展示 */
+ .image-list{
+  display: flex;
+  flex-wrap: wrap;
+ }
+
+ .showImage{
+  width: 28vw;
+  height: 28vw;
+  margin: 6rpx 10rpx 10rpx 10rpx;
+ }
+
+ .showImage image{
+  width: 100%;
+  height: 100%;
+ }
+
+ .addImage{
+  background: #f8f8f8;
+  width: 28vw;
+  height: 28vw;
+  margin: 6rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+ }
+
+ .addImage image{
+   width: 40%;
+   height: 40%;
+ }
+
+ /* 删除和增加 */
+ .box{
+  box-sizing: border-box;
+  position: relative;
+ }
+
+ .delete{
+  position:absolute;
+  top: -21rpx;
+  right: -21rpx;
+  width: 42rpx;
+  height: 42rpx;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, .3);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ }
+
+ .delete image{
+  width: 32rpx;
+  height: 32rpx;
+ }
+
+ /* 上传 */
+ .toUpload{
+  display: flex;
+  align-items: center;
+ }
+
+ .uploadIcon{
+  margin: 0px 10rpx 0rpx 0rpx;
+  padding: 0px;
+ }
+
+ .uploadIcon image{
+  vertical-align: middle;
+  width: 80rpx;
+  height: 80rpx;
+  padding: 8rpx 8rpx;
+ }
+
+ .uploadIcon:hover{
+  background-color: rgb(248, 248, 248);
+ }
+
+.arrow-right {
+  margin-left: auto;
+  width: 48rpx; 
+  height: 48rpx;
+  min-width: 48rpx;
+  max-width: 48rpx;
+}
+
+.switch{
+  display: flex;
+}
+
+.weui-cell__bd{
+  font-size: 32rpx;
+  margin: 0rpx 8rpx;
+  padding-top: 6rpx;
+}
+
+::-webkit-scrollbar {
+  
+  width: 0;
+  height: 0;
+  color: transparent;
+  display: none;
+}
+
+.sendArticle{
+  padding-top: 0rpx;
+}
+
+.confirm{
+  margin-top: 30rpx;
+  width: 250rpx;
+}
+.cancel{
+  margin-top: 20rpx;
+  width: 250rpx;
+}
+
+.info-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.weui-cell {
+  padding: 8px;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+

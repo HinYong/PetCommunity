@@ -1,0 +1,11 @@
+/* components/form/aw_input/aw_input.wxss */
+@import "../utils/aw_common.wxss";
+.red{
+  color: red;
+  margin-left: 4rpx;
+}
+
+.cu-form-group .cu-btn{
+  width: 180rpx;
+}
+

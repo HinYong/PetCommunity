@@ -1,0 +1,14 @@
+<!--pages/userzone/following-list/following-list.wxml-->
+
+<view wx:if="{{ followingList.length === 0 }}" class="empty-list">
+  <image class="empty-image" src="/images/orderlist.png"></image>
+  <view class="empty-text">暂时还没有关注的人</view>
+</view>
+<view wx:else>
+  <view wx:for="{{followingList}}" wx:for-index="index" wx:for-item="following" wx:key="id">
+    <view class="user-info" bindtap="gotoUserZone" data-openid="{{following.openId}}">
+      <image class="user-head" src="{{following.avatarUrl}}"></image>
+      <view class="user-name">{{following.nickName}}</view>
+    </view>
+  </view>
+</view>

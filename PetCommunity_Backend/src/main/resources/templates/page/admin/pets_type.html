@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>宠物类型管理</title>
+    <link rel="stylesheet" href="../../assets/libs/layui/css/layui.css"/>
+    <link rel="stylesheet" href="../../assets/module/admin.css?v=315"/>
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+
+<!-- 页面加载loading -->
+<div class="page-loading">
+    <div class="ball-loader">
+        <span></span><span></span><span></span><span></span>
+    </div>
+</div>
+
+<!-- 正文开始 -->
+<div class="layui-fluid">
+    <div class="layui-card">
+        <div class="layui-card-body table-tool-mini full-table">
+            <div class="layui-form toolbar">
+                <div class="layui-form-item">
+                    <div class="layui-inline">
+                        <label class="layui-form-label w-auto">宠物类型名：</label>
+                        <div class="layui-input-inline mr0">
+                            <input name="pet_type_name" class="layui-input" type="text" placeholder="请输入宠物类型名"/>
+                        </div>
+                    </div>
+                    <div class="layui-inline" style="padding-right: 110px;">
+                        <button class="layui-btn icon-btn" lay-filter="formSubSearchPetsType" lay-submit>
+                            <i class="layui-icon">&#xe615;</i>搜索
+                        </button>
+                        <button id="btnAddPetsType" class="layui-btn icon-btn">
+                            <i class="layui-icon">&#xe654;</i>添加
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!--显示类型列表-->
+            <table class="layui-table" id="tablePetsType" lay-filter="tablePetsType"></table>
+        </div>
+    </div>
+</div>
+
+<!-- 表格操作列 -->
+<script type="text/html" id="operateType">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+
+<!-- 表单弹窗 -->
+<script type="text/html" id="modelType">
+    <form id="modelPetsTypeForm" lay-filter="modelPetsTypeForm" class="layui-form model-form">
+        <input name="pet_type_id" type="hidden"/>
+        <div class="layui-form-item">
+            <label class="layui-form-label">宠物类型名</label>
+            <div class="layui-input-block">
+                <input name="pet_type_name" placeholder="请输入宠物类型名" type="text" class="layui-input"
+                       lay-verType="tips" lay-verify="required" required/>
+            </div>
+        </div>
+        <div class="layui-form-item text-right">
+            <button class="layui-btn layui-btn-primary" type="button" ew-event="closePageDialog">取消</button>
+            <button class="layui-btn" lay-filter="modelSubmitPetsType" lay-submit>保存</button>
+        </div>
+    </form>
+</script>
+
+<!-- js部分 -->
+<script type="text/javascript" src="../../assets/libs/layui/layui.js"></script>
+<script type="text/javascript" src="../../assets/js/common.js?v=315"></script>
+<script>
+    layui.use(['layer', 'form', 'table', 'util', 'admin', 'tableX'], function () {
+        var $ = layui.jquery;
+        var layer = layui.layer;
+        var form = layui.form;
+        var table = layui.table;
+        var util = layui.util;
+        var admin = layui.admin;
+        var tableX = layui.tableX;
+
+        // 渲染表格
+        var insTb = table.render({
+            elem: '#tablePetsType',  // 指定html中表格元素选择器，也可以使用id选择器
+            url: '/api/getAllPetsTypes_limit',  // 请求地址
+            page: true,  // 开启分页
+            height: "full-100",
+            toolbar: false,  // 工具栏
+            cellMinWidth: 120,
+            // 设置表格的表头
+            cols: [
+                [
+                    // 通过对field赋的值与数据库中字段直接匹配进行渲染，而且渲染为html代码后行元素的"data-field"也是对应的值
+                    {field: 'pet_type_id', title: '宠物类型编号'}
+                    ,{field: 'pet_type_name', sort: true, title: '宠物类型名'}
+                    ,{align: 'center', toolbar: '#operateType', title: '操作', minWidth: 200}
+                ]
+            ]
+        });
+
+        // 绑定btnAddPetsType按钮，监听点击事件
+        $('#btnAddPetsType').click(function () {
+            // 调用编辑弹窗函数
+            showEditModel();
+        });
+
+        // 监听提交搜索表单事件
+        // function(data)中的data是表单中的对象
+        form.on('submit(formSubSearchPetsType)', function (data) {
+            // 重载insTb表格，where是指要往后台发的参数的键值对，data是默认值
+            insTb.reload({where: data.field, url:'/api/findPetsType', page : {curr : 1}}, 'data');
+        });
+
+        // 监听table中的点击事件
+        // obj是当前行的对象，其中的data参数是当前行的数据，以键值对呈现，event是定义的lay-event事件名称
+        table.on('tool(tablePetsType)', function (obj) {
+            var data = obj.data;
+            var layEvent = obj.event;
+            if (layEvent === 'edit') { // 修改
+                // 调用编辑弹窗函数
+                showEditModel(data);
+            } else if (layEvent === 'del') { // 删除
+                // 调用删除弹窗函数
+                doDel(data.pet_type_id, data.pet_type_name);
+            }
+        });
+
+        // 显示表单弹窗
+        function showEditModel(mType) {
+            // 若当前没有类型，则说明是要添加
+            if(mType==null){
+                // 打开一个弹窗类型的弹出层
+                admin.open({
+                    type: 1,  // 弹出层类型
+                    title: '添加宠物类型',  // 弹出层标题
+                    content: $('#modelType').html(),  // $('#modelType')是选择器，弹出层显示的内容是modelType的html代码
+                    success: function (layero, dIndex) {
+                        $(layero).children('.layui-layer-content').css('overflow', 'visible');
+                        var url = '/api/addPetsType';
+                        // form.val是用mType批量对id为modelPetsTypeForm的表单元素批量赋值
+                        form.val('modelPetsTypeForm', mType);
+                        // 监听表单提交事件
+                        form.on('submit(modelSubmitPetsType)', function (data) {
+                            layer.load(2);
+                            $.ajax({
+                                url:url,
+                                type:"POST",
+                                data:JSON.stringify(data.field),
+                                contentType:"application/json; charset=utf-8",
+                                dataType:"json",
+                                success: function(res){
+                                    layer.closeAll('loading');
+                                    if (res.code == 200) {  // 修改成功
+                                        layer.close(dIndex);  // 关闭表单弹窗
+                                        layer.msg(res.msg, {icon: 1});  // 显示消息提示框
+                                        insTb.reload({}, 'data');  // table数据重载
+                                    } else {
+                                        layer.msg(res.msg, {icon: 2});
+                                    }
+                                }
+                            });
+                            return false;
+                        });
+                    }
+                });
+            }else{
+                admin.open({
+                    type: 1,
+                    title: '修改类型',
+                    content: $('#modelType').html(),
+                    success: function (layero, dIndex) {
+                        $(layero).children('.layui-layer-content').css('overflow', 'visible');
+                        var url = '/api/updatePetsType';
+                        // 用mType批量对form中元素赋值并显示在表单中
+                        form.val('modelPetsTypeForm', mType);
+                        // 表单提交事件，data是表单内容的对象，其中field属性是表单的input的内容，以键值对的形式呈现
+                        form.on('submit(modelSubmitPetsType)', function (data) {
+                            layer.load(2);
+                            // 请求发送到后端
+                            $.ajax({
+                                url:url,
+                                type:"POST",
+                                data:JSON.stringify(data.field),
+                                contentType:"application/json; charset=utf-8",
+                                dataType:"json",
+                                success: function(res){
+                                    layer.closeAll('loading');
+                                    if (res.code == 200) {
+                                        layer.close(dIndex);
+                                        layer.msg(res.msg, {icon: 1});
+                                        insTb.reload({}, 'data');
+                                    } else {
+                                        layer.msg(res.msg, {icon: 2});
+                                    }
+                                }
+                            });
+                            return false;
+                        });
+                    }
+                });
+            }
+        }
+
+        // 删除
+        function doDel(id, name) {
+            layer.confirm('确定要删除“' + name + '”吗？', {
+                skin: 'layui-layer-admin',
+                shade: .1
+            }, function (i) {
+                layer.close(i);
+                layer.load(2);
+                $.get('/api/delPetsType', {
+                    pet_type_id: id
+                }, function (res) {
+                    layer.closeAll('loading');
+                    if (res.code == 200) {
+                        layer.msg(res.msg, {icon: 1});
+                        insTb.reload({}, 'data');
+                    } else {
+                        layer.msg(res.msg, {icon: 2});
+                    }
+                }, 'json');
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

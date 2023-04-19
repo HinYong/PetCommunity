@@ -1,0 +1,174 @@
+<!--pages/pet-adopt/my-requests/request-detail/request-detail.wxml-->
+<view class='top'>
+  <!-- 领养需求内容 -->
+  <swiper indicator-dots='true' autoplay="true" duration="1200" class="hot-card">
+    <swiper-item wx:for="{{adopt.images_List}}" wx:for-item='image' wx:key="index">
+      <image class="img" src="{{image}}" data-imageslist="{{adopt.images_List}}" data-imageId="{{index}}" bindtap="showImage"></image>
+    </swiper-item>
+  </swiper>
+
+  <!-- 宠物基本信息栏 -->
+  <view class='separator'>
+    <image src="/images/line-black.png" class='separator-line'></image>
+    <view class='separator-text'>领养基本信息</view>
+    <image src="/images/line-black.png" class='separator-line'></image>
+  </view>
+  <view class="order-block">
+    <view class="order-card">
+      <view class="context">
+        <view class="orderinfo">宠物种类：{{adopt.petsType.pet_type_name}}</view>
+        <view class="orderinfo">宠物品种：{{adopt.pet_name}}</view>
+        <view class="orderinfo">宠物年龄：{{adopt.pet_age}}</view>
+        <view class="orderinfo">发布机构：{{adopt.agency.agency_name}}</view>
+        <view class="orderinfo">发布时间：{{adopt.publish_time}}</view>
+        <view class="orderinfo" wx:if="{{adopt.finish_time!=null}}">完成时间：{{adopt.finish_time}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 宠物描述 -->
+  <view class='separator'>
+    <image src="/images/line-black.png" class='separator-line'></image>
+    <view class='separator-text'>宠物描述</view>
+    <image src="/images/line-black.png" class='separator-line'></image>
+  </view>
+  <view class="order-block">
+    <view class="order-card">
+      <view class="context">
+        <view class="orderinfo">{{adopt.pet_description}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 领养要求 -->
+  <view class='separator'>
+    <image src="/images/line-black.png" class='separator-line'></image>
+    <view class='separator-text'>领养要求</view>
+    <image src="/images/line-black.png" class='separator-line'></image>
+  </view>
+  <view class="order-block">
+    <view class="order-card">
+      <view class="context">
+        <view class="orderinfo">{{adopt.adopt_requirement}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 用户提交申请内容 -->
+  <view class='separator'>
+    <image src="/images/line-black.png" class='separator-line'></image>
+    <view class='separator-text'>申请状态</view>
+    <image src="/images/line-black.png" class='separator-line'></image>
+  </view>
+
+  <!-- 申请状态显示，未审理，通过初审，已完成，已拒绝，已取消 -->
+  <view class="order-block1">
+    <view class="order-card1">
+      <view class="imgs1">
+        <image src="/images/orderstatus.png"></image>
+      </view>
+      <view wx:if="{{adopt_request.status==0}}" class="context1">
+        <view class="title">等待机构审理</view>
+      </view>
+      <view wx:elif="{{adopt_request.status==1}}" class="context1">
+        <view class="title">已通过初审，请携带材料到机构办理手续！</view>
+      </view>
+      <view wx:elif="{{adopt_request.status==2}}" class="context1">
+        <view class="title">领养已完成！感谢您为救助流浪宠物事业做出的贡献！</view>
+      </view>
+      <view wx:elif="{{adopt_request.status==3}}" class="context1">
+        <view class="title">申请已被拒绝！拒绝理由请见下方！</view>
+      </view>
+      <view wx:else class="context1">
+        <view class="title">领养申请已取消！</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 对接机构信息 -->
+  <view class='separator'>
+    <image src="/images/line-black.png" class='separator-line'></image>
+    <view class='separator-text'>对接机构信息</view>
+    <image src="/images/line-black.png" class='separator-line'></image>
+  </view>
+  <view class="order-block1">
+    <view class="order-card1">
+      <view class="imgs1">
+        <image src="/images/agency.png"></image>
+      </view>
+      <view class="context1">
+        <view class="title">
+          名称：{{adopt_request.agency.agency_name}}
+        </view>
+        <view class="title">
+          电话：{{adopt_request.agency.phone}}
+        </view>
+        <view class="title">
+          邮箱：{{adopt_request.agency.email}}
+        </view>
+        <view class="title">
+          地址：{{adopt_request.agency.total_address}}
+        </view>
+        <view class="title" wx:if="{{adopt_request.agency.website!=null}}">
+          网站：{{adopt_request.agency.website}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 领养申请详情 -->
+  <view class='separator'>
+    <image src="/images/line-black.png" class='separator-line'></image>
+    <view class='separator-text'>领养申请详情</view>
+    <image src="/images/line-black.png" class='separator-line'></image>
+  </view>
+  <view class='artical-container'>
+    <view class="part-content-top">
+      <view class="adoptrequest-info">
+        <view class="adoptrequest-info-item">联系人：{{adopt_request.contact_name}}</view>
+        <view class="adoptrequest-info-item">联系电话：{{adopt_request.contact_phone}}</view>
+        <view class="adoptrequest-info-item">联系地址：{{adopt_request.contact_address}}</view>
+      </view>
+    </view>
+    <view class="part-content-middle">
+      <view class="acticle-text">领养描述：{{adopt_request.request_content}}</view>
+      <view class="acticle-image" wx:if="{{adopt_request.images_List!=null}}">
+        <block wx:for="{{adopt_request.images_List}}" wx:key="index">
+          <view class="show-image">
+            <image wx:if="{{item}}" src="{{item}}" mode="aspectfill" data-imageslist="{{adopt_request.images_List}}" data-imageId="{{index}}" bindtap="showImage"></image>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <!-- 领养申请信息 -->
+  <view class='separator'>
+    <image src="/images/line-black.png" class='separator-line'></image>
+    <view class='separator-text'>领养申请信息</view>
+    <image src="/images/line-black.png" class='separator-line'></image>
+  </view>
+  <view class="order-block1">
+    <view class="order-card1">
+      <view class="imgs1">
+        <image src="/images/orderinfo.png"></image>
+      </view>
+      <view class="context1">
+        <view class="orderinfo">领养申请编号：{{adopt_request.request_id}}</view>
+        <view class="orderinfo">领养需求编号：{{adopt_request.adopt_id}}</view>
+        <view class="orderinfo" wx:if="{{adopt_request.request_time != null}}">申请时间：{{adopt_request.request_time}}</view>
+        <view class="orderinfo" wx:if="{{adopt_request.process_time != null}}">初审时间：{{adopt_request.process_time}}</view>
+        <view class="orderinfo" wx:if="{{adopt_request.finish_time != null}}">完成时间：{{adopt_request.finish_time}}</view>
+        <view class="orderinfo" wx:if="{{adopt_request.refuse_time != null}}">拒绝时间：{{adopt_request.refuse_time}}</view>
+        <view class="orderinfo" wx:if="{{adopt_request.refuse_time != null}}">拒绝理由：{{adopt_request.refuse_reason}}</view>
+        <view class="orderinfo" wx:if="{{adopt_request.cancel_time != null}}">取消时间：{{adopt_request.cancel_time}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 取消申请，只有在机构未审核的时候才能够取消 -->
+  <view class='opr' wx:if="{{adopt_request.status==0}}">
+    <view class='opr-cancel' bindtap="cancelAdoptRequest">取消申请</view> 
+  </view>
+</view>
+

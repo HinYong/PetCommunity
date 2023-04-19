@@ -1,0 +1,15 @@
+<!--pages/userzone/follower-list/follower-list.wxml-->
+
+<view wx:if="{{ followerList.length === 0 }}" class="empty-list">
+  <image class="empty-image" src="/images/orderlist.png"></image>
+  <view class="empty-text">暂时还没有粉丝</view>
+</view>
+<view wx:else>
+  <view wx:for="{{followerList}}" wx:for-index="index" wx:for-item="follower" wx:key="id">
+    <view class="user-info" bindtap="gotoUserZone" data-openid="{{follower.openId}}">
+      <image class="user-head" src="{{follower.avatarUrl}}"></image>
+      <view class="user-name">{{follower.nickName}}</view>
+    </view>
+  </view>
+</view>
+

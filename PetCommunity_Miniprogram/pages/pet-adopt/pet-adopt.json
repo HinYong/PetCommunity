@@ -1,0 +1,6 @@
+{
+  "usingComponents": {},
+  "navigationBarTitleText": "宠物领养",
+  "backgroundTextStyle":"dark",
+  "enablePullDownRefresh":true
+}

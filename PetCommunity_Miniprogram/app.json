@@ -1,0 +1,88 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/order/order",
+    "pages/trolley/trolley",
+    "pages/user/user",
+    "pages/detail/detail",
+    "pages/add-comment/add-comment",
+    "pages/check-comment/check-comment",
+    "pages/comment/comment",
+    "pages/category/category",
+    "pages/payment/payment",
+    "pages/payment/select-address/select-address",
+    "pages/address/addresslist/addresslist",
+    "pages/address/create-new-address/create-new-address",
+    "pages/order/order-detail/order-detail",
+    "pages/order/order-return-apply/order-return-apply",
+    "pages/order/order-return-detail/order-return-detail",
+    "pages/discovery/discovery",
+    "pages/community/community",
+    "pages/pet-adopt/pet-adopt",
+    "pages/pet-help/pet-help",
+    "pages/encyclopedia/encyclopedia",
+    "pages/pet-detail/pet-detail",
+    "pages/community/publish-blog/publish-blog",
+    "pages/blog-detail/blog-detail",
+    "pages/userzone/userzone",
+    "pages/userzone/following-list/following-list",
+    "pages/userzone/follower-list/follower-list",
+    "pages/pet-help/publish-help/publish-help",
+    "pages/pet-help/help-detail/help-detail",
+    "pages/pet-adopt/adopt-detail/adopt-detail",
+    "pages/pet-adopt/my-requests/my-requests",
+    "pages/pet-adopt/request-adopt/request-adopt",
+    "pages/pet-adopt/my-requests/request-detail/request-detail"
+  ],
+  "tabBar": {
+    "color": "#5d5f64",
+    "selectedColor": "#5d5f64",
+    "backgroundColor": "#fff",
+    "position": "bottom",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "images/home.png",
+        "selectedIconPath": "images/home_selected.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "iconPath": "images/menu.png",
+        "selectedIconPath": "images/menu_selected.png",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/discovery/discovery",
+        "iconPath": "images/discovery.png",
+        "selectedIconPath": "images/discovery_selected.png",
+        "text": "小萌书"
+      },
+      {
+        "pagePath": "pages/trolley/trolley",
+        "iconPath": "images/trolley.png",
+        "selectedIconPath": "images/trolley_selected.png",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "iconPath": "images/user.png",
+        "selectedIconPath": "images/user_selected.png",
+        "text": "个人中心"
+      }
+    ]
+  },
+  "window": {
+    "backgroundColor": "#F6F6F6",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "猫狗小站",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "aw-input": "/components/form/aw_input/aw_input",
+    "aw-picker": "/components/form/aw_picker/aw_picker"
+  }
+}

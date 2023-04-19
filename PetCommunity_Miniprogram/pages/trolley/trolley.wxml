@@ -1,0 +1,66 @@
+<!--pages/trolley/trolley.wxml-->
+<image class="bg" src="/images/bg.png"></image>
+<view wx:if="{{!userInfo}}">
+  <login bindonLogin="onTapLogin"></login>
+</view>
+<view wx:elif="{{ length === 0 }}" class="empty-list">
+  <image class="empty-image" src="/images/trolley.png"></image>
+  <view class="empty-text">购物车是空的</view>
+  <view class="empty-text">快添加物品进来吧</view>
+</view>
+<view wx:else>
+  <!-- 顶部栏 -->
+  <view class='trolley-top'>
+    <view class='trolley-total' bindtap='onTapCheckTotal'>
+      <view class="trolley-check-wrapper white {{isTrolleyTotalCheck ? 'check' : ''}}">
+        <image class='trolley-check' src='/images/check.png' wx:if='{{isTrolleyTotalCheck}}'></image>
+      </view>
+      <view class='trolley-total-text'>全选</view>
+    </view>
+    <view class='trolley-delete' bindtap='onTapDelete'>删除</view>
+    <view class='trolley-edit' bindtap="onTapEdit">{{isTrolleyEdit ? '完成' : '编辑'}}</view>
+  </view>
+
+  <!-- 购物车列表 -->
+  <scroll-view class='product-list' scroll-y scroll-with-animation enable-back-to-top>
+    <!-- 循环遍历 -->
+    <view class='product-card' wx:for='{{trolleyList}}' wx:for-item='item' wx:key='id'>
+      <!-- 选择按钮 -->
+      <view class="trolley-check-wrapper {{trolleyCheckMap[item.goods_id] ? 'check' : ''}}" bindtap='onTapCheckSingle' data-id="{{item.goods_id}}">
+        <!-- 若有打勾则加上贴图 -->
+        <image class="trolley-check" src='/images/check.png' wx:if="{{trolleyCheckMap[item.goods_id]}}"></image>
+      </view>
+      <!-- 商品信息 -->
+      <image class="product-img" src="{{item.goods.image}}" bindtap="gotoDetail" data-id="{{item.goods_id}}"></image>
+      <view class='product-info' bindtap="gotoDetail" data-id="{{item.goods_id}}">
+        <view class='product-name'>{{item.goods.name}}</view>
+        <view class='product-price'>￥{{item.goods.price}}</view>
+        <!-- 编辑状态 -->
+        <view class='product-count-edit' wx:if='{{isTrolleyEdit}}'>
+          <view class="image-btn" hover-class="btn-hover" bindtap='adjustTrolleyCount' data-type="reduce" data-id="{{item.goods_id}}">
+            <image class="image-btn-content" src="/images/minus.png"></image>
+          </view>
+          <view class='count-now'>{{item.count}}</view>
+          <view class="image-btn" hover-class="btn-hover" bindtap='adjustTrolleyCount' data-type="add" data-id="{{item.goods_id}}">
+            <image class="image-btn-content" src="/images/add.png"></image>
+          </view>
+        </view>
+        <view class="product-count" wx:else>x {{item.count}}</view>
+      </view>
+    </view>
+    <!-- 循环结束 -->
+  </scroll-view>
+
+  <!-- 结算栏 -->
+  <view class='bottom'>
+    <view class='trolley-total' bindtap='onTapCheckTotal'>
+      <view class="trolley-check-wrapper {{isTrolleyTotalCheck ? 'check' : ''}}">
+        <image class='trolley-check' src='/images/check.png' wx:if='{{isTrolleyTotalCheck}}'></image>
+      </view>
+      <view class='trolley-total-text'>全选</view>
+    </view>
+    <view class='bottom-text'>总价</view>
+    <view class='bottom-price'>￥{{ trolleyAccount }}</view>
+    <view hover-class="btn-hover" class="bottom-pay {{trolleyAccount>0 ? 'canpay' : ''}}" bindtap='onTapPay'>结算</view>
+  </view>
+</view>

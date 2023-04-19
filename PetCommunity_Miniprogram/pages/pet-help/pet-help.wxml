@@ -1,0 +1,158 @@
+<!--pages/pet-help/pet-help.wxml-->
+
+<!-- 求助发帖按钮 -->
+<view class="publish-block">
+  <view class="publish-card" bindtap="gotoPublishHelp">
+    <view class="imgs">
+      <image src="/images/publish.png"></image>
+    </view>
+    <view class="context">
+      <view class="title">发布求助</view>
+    </view>
+  </view>
+</view>
+
+<!-- 发布求助列表 -->
+<view>
+  <!-- 顶部菜单栏 -->
+  <view class="navbar">
+    <text wx:for="{{navbar}}" data-idx="{{index}}" class="item {{currentTab==index ? 'active' : ''}}" wx:key="unique" bindtap="navbarTap">{{item}}</text>
+  </view>
+
+  <!-- 未处理 -->
+  <view wx:if="{{currentTab==0}}">
+    <view wx:if="{{ notprocess_helps.length === 0 }}" class="empty-list">
+      <image class="empty-image" src="/images/orderlist.png"></image>
+      <view class="empty-text">暂时还没有求助请求</view>
+    </view>
+    <view wx:else>
+      <scroll-view class="part-content" scroll-y style="height: 513px" bindscrolltolower="loadMore">
+        <view wx:for="{{notprocess_helps}}" wx:for-item="help" wx:key="index" class="part-content-item">
+          <view class="part-content-top" bindtap="gotoHelpDetail" data-help="{{help}}">
+            <!-- 基本信息 -->
+            <view class="help-info">
+              <view class="help-info-item">联系人：{{help.contact_name}}</view>
+              <view class="help-info-item">联系电话：{{help.contact_phone}}</view>
+              <view class="help-info-item">地址：{{help.province}}{{help.city}}{{help.detail_address}}</view>
+            </view>
+          </view>
+          <!-- 求助内容 -->
+          <view class="part-content-middle">
+            <view class="acticle-text" bindtap="gotoHelpDetail" data-help="{{help}}">求助描述：{{help.help_content}}</view>
+            <view class="acticle-image" wx:if="{{help.images_List!=null}}">
+              <block wx:for="{{help.images_List}}" wx:key="index">
+                <view class="show-image">
+                  <image wx:if="{{item}}" src="{{item}}" mode="aspectfill" data-imageslist="{{help.images_List}}" data-imageId="{{index}}" bindtap="showImage"></image>
+                </view>
+              </block>
+            </view>
+            <view class="publish-time">发布于：{{help.publish_time1}}</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <!-- 已受理 -->
+  <view wx:elif="{{currentTab==1}}">
+    <view wx:if="{{ processing_helps.length === 0 }}" class="empty-list">
+      <image class="empty-image" src="/images/orderlist.png"></image>
+      <view class="empty-text">暂时还没有求助请求</view>
+    </view>
+    <view wx:else>
+      <scroll-view class="part-content" scroll-y style="height: 500px" bindscrolltolower="loadMore">
+        <view wx:for="{{processing_helps}}" wx:for-item="help" wx:key="index" class="part-content-item">
+          <view class="part-content-top" bindtap="gotoHelpDetail" data-help="{{help}}">
+            <!-- 基本信息 -->
+            <view class="help-info">
+              <view class="help-info-item">联系人：{{help.contact_name}}</view>
+              <view class="help-info-item">联系电话：{{help.contact_phone}}</view>
+              <view class="help-info-item">地址：{{help.province}}{{help.city}}{{help.detail_address}}</view>
+            </view>
+          </view>
+          <!-- 求助内容 -->
+          <view class="part-content-middle">
+            <view class="acticle-text" bindtap="gotoHelpDetail" data-help="{{help}}">求助描述：{{help.help_content}}</view>
+            <view class="acticle-image" wx:if="{{help.images_List!=null}}">
+              <block wx:for="{{help.images_List}}" wx:key="index">
+                <view class="show-image">
+                  <image wx:if="{{item}}" src="{{item}}" mode="aspectfill" data-imageslist="{{help.images_List}}" data-imageId="{{index}}" bindtap="showImage"></image>
+                </view>
+              </block>
+            </view>
+            <view class="publish-time">发布于：{{help.publish_time1}}</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+  
+  <!-- 已完成 -->
+  <view wx:elif="{{currentTab==2}}">
+    <view wx:if="{{ finish_helps.length === 0 }}" class="empty-list">
+      <image class="empty-image" src="/images/orderlist.png"></image>
+      <view class="empty-text">暂时还没有求助请求</view>
+    </view>
+    <view wx:else>
+      <scroll-view class="part-content" scroll-y style="height: 513px" bindscrolltolower="loadMore">
+        <view wx:for="{{finish_helps}}" wx:for-item="help" wx:key="index" class="part-content-item">
+          <view class="part-content-top" bindtap="gotoHelpDetail" data-help="{{help}}">
+            <!-- 基本信息 -->
+            <view class="help-info">
+              <view class="help-info-item">联系人：{{help.contact_name}}</view>
+              <view class="help-info-item">联系电话：{{help.contact_phone}}</view>
+              <view class="help-info-item">地址：{{help.province}}{{help.city}}{{help.detail_address}}</view>
+            </view>
+          </view>
+          <!-- 求助内容 -->
+          <view class="part-content-middle">
+            <view class="acticle-text" bindtap="gotoHelpDetail" data-help="{{help}}">求助描述：{{help.help_content}}</view>
+            <view class="acticle-image" wx:if="{{help.images_List!=null}}">
+              <block wx:for="{{help.images_List}}" wx:key="index">
+                <view class="show-image">
+                  <image wx:if="{{item}}" src="{{item}}" mode="aspectfill" data-imageslist="{{help.images_List}}" data-imageId="{{index}}" bindtap="showImage"></image>
+                </view>
+              </block>
+            </view>
+            <view class="publish-time">发布于：{{help.publish_time1}}</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <!-- 已取消 -->
+  <view wx:elif="{{currentTab==3}}">
+    <view wx:if="{{ cancel_helps.length === 0 }}" class="empty-list">
+      <image class="empty-image" src="/images/orderlist.png"></image>
+      <view class="empty-text">暂时还没有求助请求</view>
+    </view>
+    <view wx:else>
+      <scroll-view class="part-content" scroll-y style="height: 513px" bindscrolltolower="loadMore">
+        <view wx:for="{{cancel_helps}}" wx:for-item="help" wx:key="index" class="part-content-item">
+          <view class="part-content-top" bindtap="gotoHelpDetail" data-help="{{help}}">
+            <!-- 基本信息 -->
+            <view class="help-info">
+              <view class="help-info-item">联系人：{{help.contact_name}}</view>
+              <view class="help-info-item">联系电话：{{help.contact_phone}}</view>
+              <view class="help-info-item">地址：{{help.province}}{{help.city}}{{help.detail_address}}</view>
+            </view>
+          </view>
+          <!-- 求助内容 -->
+          <view class="part-content-middle">
+            <view class="acticle-text" bindtap="gotoHelpDetail" data-help="{{help}}">求助描述：{{help.help_content}}</view>
+            <view class="acticle-image" wx:if="{{help.images_List!=null}}">
+              <block wx:for="{{help.images_List}}" wx:key="index">
+                <view class="show-image">
+                  <image wx:if="{{item}}" src="{{item}}" mode="aspectfill" data-imageslist="{{help.images_List}}" data-imageId="{{index}}" bindtap="showImage"></image>
+                </view>
+              </block>
+            </view>
+            <view class="publish-time">发布于：{{help.publish_time1}}</view>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
+</view>
+

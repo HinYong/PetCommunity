@@ -1,0 +1,194 @@
+<!--pages/order/order-detail/order-detail.wxml-->
+
+<wxs module="filters" src="/utils/filters.wxs"></wxs>
+
+<view>
+  <view class='order-head'>
+      <image src="/images/line-black.png" class='order-head-line'></image>
+      <view class='order-head-text'>订单状态</view>
+  </view>
+  <!-- 发货状态显示，未发货，已发货，已完成 -->
+  <view class="order-block">
+    <view class="order-card">
+      <view class="imgs">
+        <image src="/images/orderstatus.png"></image>
+      </view>
+      <view wx:if="{{order.status==1}}" class="context">
+        <view class="title">等待卖家发货</view>
+      </view>
+      <view wx:elif="{{order.status==2}}" class="context">
+        <view class="title">卖家已发货，请确认收货</view>
+      </view>
+      <view wx:elif="{{order.status==3}}" class="context">
+        <view class="title">订单已完成</view>
+      </view>
+      <view wx:else class="context">
+        <view class="title">订单已取消，钱款已原路返回！</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 未发货的话是没有物流信息的，已发货和已完成的显示物流信息 -->
+  <view class='order-head'>
+      <image src="/images/line-black.png" class='order-head-line'></image>
+      <view class='order-head-text'>物流信息</view>
+  </view>
+  <view class="order-block">
+    <view class="order-card">
+      <view class="imgs">
+        <image src="/images/delivery.png"></image>
+      </view>
+      <!-- 不是处于未发货的状态 -->
+      <view class="context" wx:if="{{order.status!=1}}">
+        <view class="title">
+          <!-- 有可能订单完成了，但是商家并未发过货，有可能是买家退款成功了就直接确认收货了 -->
+          <view wx:if="{{order.delivery_company!=null}}">
+            物流公司：{{order.delivery_company}}
+          </view>
+          <view wx:else>
+            物流公司：暂无
+          </view>
+        </view>
+        <view class="bottoms">
+          <view wx:if="{{order.delivery_id!=null}}">
+            物流单号：{{order.delivery_id}}
+          </view>
+          <view wx:else>
+            物流单号：暂无
+          </view>
+        </view>
+      </view>
+      <view class="context" wx:else>
+        <view class="title">暂无物流信息</view>
+      </view>
+    </view>
+  </view>
+
+  <view class='order-head'>
+      <image src="/images/line-black.png" class='order-head-line'></image>
+      <view class='order-head-text'>收件人</view>
+  </view>
+  <view class="order-block">
+    <view class="order-card">
+      <view class="imgs">
+        <image src="/images/address_selected.png"></image>
+      </view>
+      <view class="context">
+        <view class="title">{{Address.receiver_name}} {{Address.receiver_phone}}</view>
+        <view class="bottoms">{{Address.province}} {{Address.city}} {{Address.area}} {{Address.detail_address}}</view>
+      </view>
+    </view>
+  </view>
+  
+  <view class='order-head'>
+    <image src="/images/line-black.png" class='order-head-line'></image>
+    <view class='order-head-text'>订单详情</view>
+  </view>
+  <!-- 未发货 -->
+  <view class="item-block" wx:if="{{order.status==1}}">
+    <view wx:for="{{order.orderItems}}" wx:for-item="block">
+      <navigator url="/pages/detail/detail?id={{block.goods_id}}" class="item-card">
+        <image class="order-image" mode="widthFix" src="{{block.goods.image}}"></image>
+        <view class="order-info">
+          <view class="order-name">{{block.goods.name}}</view>
+          <view class="order-price">¥ {{block.goods.price}}</view>
+        </view>
+        <view class="order-opr">
+          <view class="order-count">x{{block.count}}</view>
+          <view class="item-total-price">小计：¥ {{filters.toFix(block.goods.price*block.count)}}</view>
+        </view>
+      </navigator>
+    </view>
+    <view class="totalprice">共支付：¥ {{order.totalPrice}}</view>
+    <view class="order-btn-2" bindtap='gotoCancel'>取消订单</view>
+  </view>
+
+  <!-- 已发货 -->
+  <view class="item-block" wx:elif="{{order.status==2}}">
+    <view wx:for="{{order.orderItems}}" wx:for-item="block">
+      <navigator url="/pages/detail/detail?id={{block.goods_id}}" class="item-card">
+        <image class="order-image" mode="widthFix" src="{{block.goods.image}}"></image>
+        <view class="order-info">
+          <view class="order-name">{{block.goods.name}}</view>
+          <view class="order-price">¥ {{block.goods.price}}</view>
+        </view>
+        <view class="order-opr">
+          <!-- 退货申请，跳转到退货信息填写页面 -->
+          <view wx:if="{{block.return_id==null}}" class="order-btn" bindtap='gotoApplyReturn' data-item='{{block}}'>退货申请</view>
+          <!-- 已经发起了退货，跳转到退货详细信息页面 -->
+          <view wx:else class="order-btn" bindtap='gotoReturnDetail' data-item='{{block}}'>退货详情</view>
+          <view class="order-count-2">x{{block.count}}</view>
+          <view class="item-total-price">小计：¥ {{filters.toFix(block.goods.price*block.count)}}</view>
+        </view>
+      </navigator>
+    </view>
+    <view class="totalprice">共支付：¥ {{order.totalPrice}}</view>
+    <view class="order-btn-2" bindtap='gotoConfirm'>确认收货</view>
+  </view>
+
+  <!-- 已完成 -->
+  <view class="item-block" wx:elif="{{order.status==3}}">
+    <view wx:for="{{order.orderItems}}" wx:for-item="block">
+      <navigator url="/pages/detail/detail?id={{block.goods_id}}" class="item-card">
+        <image class="order-image" mode="widthFix" src="{{block.goods.image}}"></image>
+        <view class="order-info">
+          <view class="order-name">{{block.goods.name}}</view>
+          <view class="order-price">¥ {{block.goods.price}}</view>
+        </view>
+        <view class="order-opr">
+          <!-- 退货的项目，应该显示退货详情而不是评价 -->
+          <view wx:if="{{block.return_id!=null}}">
+            <view class="order-btn" bindtap='gotoReturnDetail' data-item='{{block}}'>退货详情</view>
+          </view>
+          <!-- 确认收货交易成功的才可以评价 -->
+          <view wx:else>
+            <view wx:if="{{block.is_commented==0}}" class="order-btn" bindtap='goComment' data-id='{{block.item_id}}' data-item='{{block.goods}}'>评价</view>
+            <view wx:else class="order-btn" bindtap='checkComment' data-id='{{block.item_id}}' data-item='{{block.goods}}'>查看评价</view>
+          </view>
+          <view class="order-count-2">x{{block.count}}</view>
+          <view class="item-total-price">小计：¥ {{filters.toFix(block.goods.price*block.count)}}</view>
+        </view>
+      </navigator>
+    </view>
+    <view class="totalprice">共支付：¥ {{order.totalPrice}}</view>
+  </view>
+
+  <!-- 已取消 -->
+  <view class="item-block" wx:else>
+    <view wx:for="{{order.orderItems}}" wx:for-item="block">
+      <navigator url="/pages/detail/detail?id={{block.goods_id}}" class="item-card">
+        <image class="order-image" mode="widthFix" src="{{block.goods.image}}"></image>
+        <view class="order-info">
+          <view class="order-name">{{block.goods.name}}</view>
+          <view class="order-price">¥ {{block.goods.price}}</view>
+        </view>
+        <view class="order-opr">
+          <view class="order-count">x{{block.count}}</view>
+          <view class="item-total-price">小计：¥ {{filters.toFix(block.goods.price*block.count)}}</view>
+        </view>
+      </navigator>
+    </view>
+    <view class="totalprice">共支付：¥ {{order.totalPrice}}</view>
+  </view>
+
+  <!-- 订单信息 -->
+  <view class='order-head'>
+      <image src="/images/line-black.png" class='order-head-line'></image>
+      <view class='order-head-text'>订单信息</view>
+  </view>
+  <view class="order-block">
+    <view class="order-card">
+      <view class="imgs">
+        <image src="/images/orderinfo.png"></image>
+      </view>
+      <view class="context">
+        <view class="orderinfo">订单编号：{{order.id}}</view>
+        <view class="orderinfo" wx:if="{{order.create_time != null}}">创建时间：{{order.create_time}}</view>
+        <view class="orderinfo" wx:if="{{order.delivery_time != null}}">发货时间：{{order.delivery_time}}</view>
+        <view class="orderinfo" wx:if="{{order.finish_time != null}}">成交时间：{{order.finish_time}}</view>
+        <view class="orderinfo" wx:if="{{order.cancel_time != null}}">取消时间：{{order.cancel_time}}</view>
+      </view>
+    </view>
+  </view>
+
+</view>

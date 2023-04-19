@@ -1,0 +1,6 @@
+{
+  "usingComponents": {},
+  "navigationBarTitleText": "宠物百科",
+  "backgroundTextStyle":"dark",
+  "enablePullDownRefresh":true
+}

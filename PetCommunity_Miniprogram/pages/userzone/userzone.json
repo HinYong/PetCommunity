@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "用户空间",
+  "usingComponents": {},
+  "backgroundTextStyle":"dark",
+  "enablePullDownRefresh":true
+}

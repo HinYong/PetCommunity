@@ -1,0 +1,131 @@
+<!--pages/pet-help/help-detail/help-detail.wxml-->
+<view>
+  <view class='order-head'>
+    <image src="/images/line-black.png" class='order-head-line'></image>
+    <view class='order-head-text'>求助状态</view>
+  </view>
+  <!-- 处理状态显示，未受理，已受理，已完成 -->
+  <view class="order-block">
+    <view class="order-card">
+      <view class="imgs">
+        <image src="/images/orderstatus.png"></image>
+      </view>
+      <view wx:if="{{help.status==0}}" class="context">
+        <view class="title">等待机构受理</view>
+      </view>
+      <view wx:elif="{{help.status==1}}" class="context">
+        <view class="title">机构已受理，对接员工联系信息请见下方</view>
+      </view>
+      <view wx:elif="{{help.status==2}}" class="context">
+        <view class="title">领养已完成！感谢您为救助流浪宠物事业做出的贡献！</view>
+      </view>
+      <view wx:else class="context">
+        <view class="title">请求已取消</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 对接机构信息 -->
+  <view class='order-head'>
+      <image src="/images/line-black.png" class='order-head-line'></image>
+      <view class='order-head-text'>对接机构信息</view>
+  </view>
+  <view class="order-block">
+    <view class="order-card">
+      <view class="imgs">
+        <image src="/images/agency.png"></image>
+      </view>
+      <view class="context">
+        <view class="title">
+          名称：{{help.agency.agency_name}}
+        </view>
+        <view class="title">
+          电话：{{help.agency.phone}}
+        </view>
+        <view class="title">
+          邮箱：{{help.agency.email}}
+        </view>
+        <view class="title">
+          地址：{{help.agency.province}}{{help.agency.city}}{{help.agency.detail_address}}
+        </view>
+        <view class="title" wx:if="{{help.agency.website!=null}}">
+          网站：{{help.agency.website}}
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 未处理的话是没有机构对接人员信息的，已受理和已完成的显示机构对接人员信息 -->
+  <view class='order-head'>
+    <image src="/images/line-black.png" class='order-head-line'></image>
+    <view class='order-head-text'>对接员工信息</view>
+  </view>
+  <view class="order-block">
+    <view class="order-card">
+      <view class="imgs">
+        <image src="/images/staff.png"></image>
+      </view>
+      <view class="context" wx:if="{{help.staff_name!=null}}">
+        <view class="title" >
+          员工姓名：{{help.staff_name}}
+        </view>
+        <view class="title">
+          员工电话：{{help.staff_phone}}
+        </view>
+      </view>
+      <view class="context" wx:else>
+        <view class="title">机构暂未派遣员工对接，请耐心等候或者联系机构</view>
+      </view>
+    </view>
+  </view>  
+
+  <!-- 求助详情 -->
+  <view class='order-head'>
+    <image src="/images/line-black.png" class='order-head-line'></image>
+    <view class='order-head-text'>求助详情</view>
+  </view>
+  <view class='artical-container'>
+    <view class="part-content-top">
+      <view class="help-info">
+        <view class="help-info-item">联系人：{{help.contact_name}}</view>
+        <view class="help-info-item">联系电话：{{help.contact_phone}}</view>
+        <view class="help-info-item">地址：{{help.province}}{{help.city}}{{help.detail_address}}</view>
+      </view>
+    </view>
+    <view class="part-content-middle">
+      <view class="acticle-text">求助描述：{{help.help_content}}</view>
+      <view class="acticle-image" wx:if="{{help.images_List!=null}}">
+        <block wx:for="{{help.images_List}}" wx:key="index">
+          <view class="show-image">
+            <image wx:if="{{item}}" src="{{item}}" mode="aspectfill" data-imageslist="{{help.images_List}}" data-imageId="{{index}}" bindtap="showImage"></image>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <!-- 求助信息 -->
+  <view class='order-head'>
+      <image src="/images/line-black.png" class='order-head-line'></image>
+      <view class='order-head-text'>求助信息</view>
+  </view>
+  <view class="order-block">
+    <view class="order-card">
+      <view class="imgs">
+        <image src="/images/orderinfo.png"></image>
+      </view>
+      <view class="context">
+        <view class="orderinfo">求助编号：{{help.help_id}}</view>
+        <view class="orderinfo" wx:if="{{help.publish_time != null}}">发布时间：{{help.publish_time}}</view>
+        <view class="orderinfo" wx:if="{{help.process_time != null}}">受理时间：{{help.process_time}}</view>
+        <view class="orderinfo" wx:if="{{help.finish_time != null}}">完成时间：{{help.finish_time}}</view>
+        <view class="orderinfo" wx:if="{{help.cancel_time != null}}">取消时间：{{help.cancel_time}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 取消请求，只有在机构未受理的时候才能够取消 -->
+  <view class='opr' wx:if="{{help.status==0}}">
+    <view class='opr-cancel' bindtap="cancelHelp">取消请求</view> 
+  </view>
+</view>

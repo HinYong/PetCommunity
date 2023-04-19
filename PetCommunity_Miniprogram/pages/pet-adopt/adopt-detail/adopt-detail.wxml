@@ -1,0 +1,57 @@
+<!--pages/pet-adopt/adopt-detail/adopt-detail.wxml-->
+<view class='top'>
+  <swiper indicator-dots='true' autoplay="true" duration="1200" class="hot-card">
+    <swiper-item wx:for="{{adopt.images_List}}" wx:for-item='image' wx:key="index">
+      <image class="img" src="{{image}}" data-imageslist="{{adopt.images_List}}" data-imageId="{{index}}" bindtap="showImage"></image>
+    </swiper-item>
+  </swiper>
+
+  <!-- 宠物基本信息栏 -->
+  <view class='separator'>
+    <image src="/images/line-black.png" class='separator-line'></image>
+    <view class='separator-text'>领养基本信息</view>
+    <image src="/images/line-black.png" class='separator-line'></image>
+  </view>
+  <view class="order-block">
+    <view class="order-card">
+      <view class="context">
+        <view class="orderinfo">宠物种类：{{adopt.petsType.pet_type_name}}</view>
+        <view class="orderinfo">宠物品种：{{adopt.pet_name}}</view>
+        <view class="orderinfo">宠物年龄：{{adopt.pet_age}}</view>
+        <view class="orderinfo">发布机构：{{adopt.agency.agency_name}}</view>
+        <view class="orderinfo">发布时间：{{adopt.publish_time}}</view>
+      </view>
+    </view>
+  </view>
+  <!-- 宠物描述 -->
+  <view class='separator'>
+    <image src="/images/line-black.png" class='separator-line'></image>
+    <view class='separator-text'>宠物描述</view>
+    <image src="/images/line-black.png" class='separator-line'></image>
+  </view>
+  <view class="order-block">
+    <view class="order-card">
+      <view class="context">
+        <view class="orderinfo">{{adopt.pet_description}}</view>
+      </view>
+    </view>
+  </view>
+  <!-- 领养要求 -->
+  <view class='separator'>
+    <image src="/images/line-black.png" class='separator-line'></image>
+    <view class='separator-text'>领养要求</view>
+    <image src="/images/line-black.png" class='separator-line'></image>
+  </view>
+  <view class="order-block">
+    <view class="order-card">
+      <view class="context">
+        <view class="orderinfo">{{adopt.adopt_requirement}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 我要领养 -->
+  <view class='opr'>
+    <view class='opr-request' bindtap="gotoReuqest">我要领养</view> 
+  </view>
+</view>
